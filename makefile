@@ -11,7 +11,7 @@ test = $(shell ls src/header)
 
 PROG_NAME = trm
 
-all: val clean
+all: object clean
 
 %.o: $(SOURCE_DIR)
 	$(CC) -c $^
