@@ -22,9 +22,6 @@ void DirectFlow(int argc, char *argv[])
             fprintf(stderr, "%s missing argument", argv[1]);
             break;
 
-            test1
-            test2
-
         default:
             ParseFlags(argc, argv);
             break;
