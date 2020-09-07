@@ -71,7 +71,7 @@ void DeleteFile(struct Logistics *core_logistics, char *target_file)
 
     else
     {
-        fprintf(stderr, "%s - non existant", target_file_location);
+        fprintf(stderr, "%s - non existent", target_file_location);
     }
 }
 
