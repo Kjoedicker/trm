@@ -5,6 +5,7 @@ void ParseFlags(int argc, char *argv[])
 {
     //sponge
     // printf("%s", argv[1]);
+    printf("%d", argc);
 
     char *use_flag = argv[1]; 
 
@@ -54,7 +55,7 @@ void ParseFlags(int argc, char *argv[])
 
     else 
     {
-        printf("Null use flags specified\n");
+        fprintf(stderr, "Null use flags specified\n");
     }   
 
     free(core_logistics);
