@@ -23,6 +23,7 @@ void DirectFlow(int argc, char *argv[])
             break;
 
             test1
+            test2
 
         default:
             ParseFlags(argc, argv);
