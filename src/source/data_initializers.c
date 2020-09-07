@@ -24,16 +24,17 @@ struct Logistics *InitLogistics()
 
     strcpy(core_logistics->trash_pwd, home_path);
     strcat(core_logistics->trash_pwd, trash_path);
-    
+
     //determines if we will attempt to create a trash folder
     core_logistics->status = (access(core_logistics->trash_pwd, F_OK) == 0) 
                                 ? TRASH_EXIST
                                 : TRASH_NULL;
 
+    //incase trash folder doesn't exist
+    InitTrashFolder(core_logistics);
+
     return core_logistics;
 }
-
-
 
 //create the trash folder if non existent
 void InitTrashFolder(struct Logistics *core_logistics)
