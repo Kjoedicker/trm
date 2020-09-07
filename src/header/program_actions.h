@@ -13,6 +13,9 @@
 //direct based on data
 void ParseFlags(int argc, char *argv[]);
 
+//based on the cli parameteres provided on runtime, act accordingly
+void DirectFlow(int argc, char *argv[]);
+
 //view the contents of .trash, with the option to view size
 int ViewTrash(struct Logistics *core_logistics, int view_size);
 enum action_verbosity {CONCISE, VERBOSE};

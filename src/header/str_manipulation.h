@@ -9,4 +9,6 @@ int cmpstr(char *a, char *b);
 char *cat_path(size_t allocation_size, char *head_pwd, char *tail_pwd, int head_direction);
 enum cat_extension {KEEP_HEAD, FREE_HEAD};
 
+int stripcmp(char *argv[], char match);
+
 #endif

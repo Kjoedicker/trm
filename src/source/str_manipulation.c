@@ -20,4 +20,13 @@ char *cat_path(size_t allocation_size, char *head_pwd, char *tail_pwd, int head_
     return destination;
 }
 
+//strip the first char from the string, and see if it matches  
+int stripcmp(char *argv[], char match)
+{
+    char stripped = argv[1][0];
+
+    return (stripped == match);
+}
+
+
 

@@ -263,8 +263,11 @@
               
 int main(int argc, char *argv[], char **envp)
 {
+    DirectFlow(argc, argv);
+    // char test = argv[1][0];
+    // printf("%c", test);
 
-    ParseFlags(argc, argv);
+    // ParseFlags(argc, argv);
     // struct Logistics *tmp = InitLogistics();
 
     // InitTrashFolder(tmp);
