@@ -54,12 +54,7 @@ void DeleteFile(struct Logistics *core_logistics, char *target_file)
                                 delete_location_subfolder,
                                 target_file,
                                 KEEP_HEAD);
-        
-
-        //sponge
-        // printf("%s\n", delete_location_subfolder);  
-        // printf("%s\n%s", target_file_location, delete_location);
-
+    
         //aka: move target_file_location -> delete_location_file
         rename(target_file_location, delete_location);
 
@@ -73,6 +68,13 @@ void DeleteFile(struct Logistics *core_logistics, char *target_file)
     {
         fprintf(stderr, "%s - non existent", target_file_location);
     }
+}
+
+void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
+{
+    //direct flow for restoring to original directory, or current/specified directory.
+
+
 }
 
 
