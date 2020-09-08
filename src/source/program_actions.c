@@ -70,13 +70,13 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[VIEW_TRASH][CONCISE], use_flag) ||
             cmpstr(flags[VIEW_TRASH][VERBOSE], use_flag) ){
-                ViewTrash(core_logistics, CONCISE);                
+                ViewTrash(core_logistics->trash_pwd, CONCISE);                
                 break;   
         }
 
         if (cmpstr(flags[VERBOSE_VIEW][CONCISE], use_flag) ||
             cmpstr(flags[VERBOSE_VIEW][VERBOSE], use_flag) ){
-                ViewTrash(core_logistics, VERBOSE);
+                ViewTrash(core_logistics->trash_pwd, VERBOSE);
                 break;      
         }
 
@@ -89,7 +89,7 @@ void ParseFlags(int argc, char *argv[])
     free(core_logistics);
 }
 
-int ViewTrash(struct Logistics *core_logistics, int view_size) 
+void ListDir(char *target_folder, int view_size) 
 { 
     struct stat file_stat;
 
@@ -97,7 +97,7 @@ int ViewTrash(struct Logistics *core_logistics, int view_size)
     struct dirent *directory_entry;  
 
     //opendir returns a stream of files in the directory
-    DIR *directory_stream = opendir(core_logistics->trash_pwd);
+    DIR *directory_stream = opendir(target_folder);
 
     if (directory_stream)
     {
@@ -107,10 +107,10 @@ int ViewTrash(struct Logistics *core_logistics, int view_size)
                 (!(cmpstr(directory_entry->d_name, ".."))) )
         {      
             //because files in .trash are nested in a self named folder we need to append for that depth for the full pwd     
-            size_t filename_size = (strlen(core_logistics->trash_pwd) + (strlen(directory_entry->d_name) * 2)) + 2;
+            size_t filename_size = (strlen(target_folder) + (strlen(directory_entry->d_name) * 2)) + 2;
             char *file_path = cat_path(filename_size,
                                        cat_path(filename_size - strlen(directory_entry->d_name), 
-                                                core_logistics->trash_pwd, 
+                                                target_folder, 
                                                 directory_entry->d_name,
                                                 KEEP_HEAD),
                                        directory_entry->d_name,
@@ -143,5 +143,4 @@ int ViewTrash(struct Logistics *core_logistics, int view_size)
         fprintf(stderr, "%s", strerror(errno));
     }
   
-    return 0; 
 } 
