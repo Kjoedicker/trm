@@ -85,7 +85,7 @@
 //     // fclose(file_p);
 // }
 
-// void DeleteFile(struct Logistics *core_logistics, char *target_file)
+// void DeleteFile(char *target_folder, char *target_file)
 // {
 //     char *pwd_path = getenv("PWD");
 

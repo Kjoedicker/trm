@@ -14,7 +14,7 @@ void DirectFlow(int argc, char *argv[])
             if(!(stripcmp(argv, '-')))
             {
                 struct Logistics *core_logistics = InitLogistics();
-                DeleteFile(core_logistics, argv[1]); 
+                DeleteFile(core_logistics->trash_pwd, argv[1]); 
                 free(core_logistics);
                 break;  
             }
@@ -64,7 +64,7 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[DELETE][CONCISE], use_flag) ||
             cmpstr(flags[DELETE][VERBOSE], use_flag) ){
-                DeleteFile(InitLogistics(), argv[2]);                
+                DeleteFile(core_logistics->trash_pwd, argv[2]);                
                 break;        
         }
         

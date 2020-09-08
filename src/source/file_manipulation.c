@@ -1,6 +1,6 @@
 #include "../header/main.h"
 
-void DeleteFile(struct Logistics *core_logistics, char *target_file)
+void DeleteFile(char *target_folder, char *target_file)
 {
     char *pwd_path = getenv("PWD");
 
@@ -15,9 +15,9 @@ void DeleteFile(struct Logistics *core_logistics, char *target_file)
     if ((access(target_file_location, F_OK)) == 0)
     {
         //concat for pwd, inorder to delete target_file later
-        size_t size_of_del_loc = ( strlen(core_logistics->trash_pwd) + (strlen(target_file) * 2) + 1);
+        size_t size_of_del_loc = ( strlen(target_folder) + (strlen(target_file) * 2) + 1);
         char *delete_location_subfolder = cat_path(size_of_del_loc,
-                                            core_logistics->trash_pwd,
+                                            target_folder,
                                             target_file,
                                             KEEP_HEAD);
 
@@ -73,6 +73,7 @@ void DeleteFile(struct Logistics *core_logistics, char *target_file)
 void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
 {
     //direct flow for restoring to original directory, or current/specified directory.
+    
 
 
 }
