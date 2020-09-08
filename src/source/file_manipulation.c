@@ -20,13 +20,26 @@ void DeleteFile(char *target_folder, char *target_file)
     //we need to access the execution path to properly handle the file
     char *pwd_path = getenv("PWD");
 
+    char *target_file_location;
+
+
+    if ((access(target_file, F_OK)) == 0)
+    {
+        target_file_location = malloc((sizeof(char) * strlen(target_file)) + 1);
+        strcpy(target_file_location, target_file);
+
+    }
+
+    else {
+
     //concat for pwd, inorder  to find target_file currently 
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(target_file) ) + 1);
-    char *target_file_location = concat(size_of_pwd,
+    target_file_location = concat(size_of_pwd,
                                         pwd_path,
                                         SEPARATOR,
                                         target_file, 
                                         KEEP_HEAD);
+    }
 
     
     if ((access(target_file_location, F_OK)) == 0)
@@ -49,7 +62,7 @@ void DeleteFile(char *target_folder, char *target_file)
                                            target_file,
                                            KEEP_HEAD);
 
-            strcat(trace_file_location, extension);
+        strcat(trace_file_location, extension);
 
         //a directory is needed to store the target_file and the TraceFile containing the original pwd
         int file_exists;
@@ -67,7 +80,7 @@ void DeleteFile(char *target_folder, char *target_file)
                 printf("Error, cannot create - %s", delete_location_subfolder);
             }  
         }
-
+    
         //full pwd to where target_file will go on deletion
         char *delete_location = concat(size_of_del_loc,
                                        delete_location_subfolder,
