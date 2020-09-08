@@ -2,33 +2,40 @@
 
 void DeleteFile(char *target_folder, char *target_file)
 {
+    //(#2), what if we are deleting a file from another directory?
+    //we need to access the execution path to properly handle the file
     char *pwd_path = getenv("PWD");
+
+
 
     //concat for pwd, inorder  to find target_file currently 
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(target_file) ) + 1);
-    char *target_file_location = cat_path(size_of_pwd,
-                                             pwd_path,
-                                             target_file, 
-                                             KEEP_HEAD);
+    char *target_file_location = concat(size_of_pwd,
+                                        pwd_path,
+                                        SEPARATOR,
+                                        target_file, 
+                                        KEEP_HEAD);
 
     
     if ((access(target_file_location, F_OK)) == 0)
     {
         //concat for pwd, inorder to delete target_file later
         size_t size_of_del_loc = ( strlen(target_folder) + (strlen(target_file) * 2) + 1);
-        char *delete_location_subfolder = cat_path(size_of_del_loc,
-                                            target_folder,
-                                            target_file,
-                                            KEEP_HEAD);
+        char *delete_location_subfolder = concat(size_of_del_loc,
+                                                 target_folder,
+                                                 SEPARATOR,
+                                                 target_file,
+                                                 KEEP_HEAD);
 
         //concat for pwd, inorder to store trace file with target_file
         char *extension = "_trace.rtf\0";
 
         size_t size_of_trace_loc = ( strlen(delete_location_subfolder) + strlen(target_file) + strlen(extension) + 2);
-        char *trace_file_location = cat_path(size_of_trace_loc,
-                                                delete_location_subfolder,
-                                                target_file,
-                                                KEEP_HEAD);
+        char *trace_file_location = concat(size_of_trace_loc,
+                                           delete_location_subfolder,
+                                           SEPARATOR,
+                                           target_file,
+                                           KEEP_HEAD);
 
             strcat(trace_file_location, extension);
 
@@ -50,10 +57,11 @@ void DeleteFile(char *target_folder, char *target_file)
         }
 
         //full pwd to where target_file will go on deletion
-        char *delete_location = cat_path(size_of_del_loc,
-                                delete_location_subfolder,
-                                target_file,
-                                KEEP_HEAD);
+        char *delete_location = concat(size_of_del_loc,
+                                       delete_location_subfolder,
+                                       SEPARATOR,
+                                       target_file,
+                                       KEEP_HEAD);
     
         //aka: move target_file_location -> delete_location_file
         rename(target_file_location, delete_location);
@@ -89,11 +97,13 @@ void ListDir(char *target_folder, int size_details)
         {      
             //because files in .trash are nested in a self named folder we need to append for that depth for the full pwd     
             size_t filename_size = (strlen(target_folder) + (strlen(directory_entry->d_name) * 2)) + 2;
-            char *file_path = cat_path(filename_size,
-                                       cat_path(filename_size - strlen(directory_entry->d_name), 
-                                                target_folder, 
+            char *file_path = concat(filename_size,
+                                       concat(filename_size - strlen(directory_entry->d_name), 
+                                                target_folder,
+                                                SEPARATOR,                                                                                            
                                                 directory_entry->d_name,
                                                 KEEP_HEAD),
+                                       SEPARATOR,
                                        directory_entry->d_name,
                                        FREE_HEAD);
             

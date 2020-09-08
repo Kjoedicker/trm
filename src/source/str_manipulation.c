@@ -7,12 +7,12 @@ int cmpstr(char *a, char *b)
 }
 
 //multiple paths need to be made extensible, head + / + tail
-char *cat_path(size_t allocation_size, char *head_pwd, char *tail_pwd, int head_direction)
+char *concat(size_t allocation_size, char *head_pwd, const char *separator, char *tail_pwd, int head_direction)
 {
     char *destination = malloc(sizeof (char) * (allocation_size + 2));
     
     strcpy(destination, head_pwd);
-    strcat(destination,"/");
+    strcat(destination, separator);
     strcat(destination, tail_pwd);
 
     if (head_direction == FREE_HEAD) { free(head_pwd); }
