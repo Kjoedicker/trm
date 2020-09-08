@@ -7,10 +7,19 @@ void FilterParameters(int argc, char *argv[])
     switch(argc)
     {
         case 1:
+
             fprintf(stderr, "Error - no parameters provided\n");
             break;
-        //(#1) -v will not work without additional parameters, problamatic
+
+        //(#1) -v will not work without additional parameters, problematic
         case 2:
+            if (cmpstr(argv[1], "-v")         || 
+                cmpstr(argv[1], "--VIEW_TRASH"))
+            {
+                ParseFlags(argc, argv);
+                break;
+            }
+
             if(!(stripcmp(argv, '-')))
             {
                 struct Logistics *core_logistics = InitLogistics();
