@@ -263,7 +263,7 @@
               
 int main(int argc, char *argv[], char **envp)
 {
-    FilterParameters(argc, argv);
+    ParseFlags(argc, argv);
     // char test = argv[1][0];
     // printf("%c", test);
 

@@ -1,42 +1,5 @@
 #include "../header/main.h"
 
-
-//filter parameters 
-void FilterParameters(int argc, char *argv[])
-{
-    switch(argc)
-    {
-        case 1:
-
-            fprintf(stderr, "Error - no parameters provided\n");
-            break;
-
-        //(#1) -v will not work without additional parameters, problematic
-        case 2:
-            if (cmpstr(argv[1], "-v")         || 
-                cmpstr(argv[1], "--VIEW_TRASH"))
-            {
-                ParseFlags(argc, argv);
-                break;
-            }
-
-            if(!(stripcmp(argv, '-')))
-            {
-                struct Logistics *core_logistics = InitLogistics();
-                DeleteFile(core_logistics->trash_pwd, argv[1]); 
-                free(core_logistics);
-                break;  
-            }
-
-            fprintf(stderr, "%s missing argument", argv[1]);
-            break;
-
-        default:
-            ParseFlags(argc, argv);
-            break;
-    }
-}
-
 //flags dictate the next function call on the target file
 void ParseFlags(int argc, char *argv[])
 {
@@ -55,9 +18,17 @@ void ParseFlags(int argc, char *argv[])
         {"-v", "--VIEW_TRASH"},
         {"-V", "--VERBOSE_VIEW"}
     };
+     
 
     //the option to break helps limit the numbers of checks we have to make each flag
     while (1) {
+
+        //no parameters == nothing to act on
+        if (argc == 1) 
+        { 
+            fprintf(stderr, "Error - no parameters provided\n");
+            break;
+        }
 
         if (cmpstr(flags[RESTORE][CONCISE], use_flag) ||
             cmpstr(flags[RESTORE][VERBOSE], use_flag) ){
@@ -73,7 +44,7 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[DELETE][CONCISE], use_flag) ||
             cmpstr(flags[DELETE][VERBOSE], use_flag) ){
-                DeleteFile(core_logistics->trash_pwd, argv[2]);                
+                ParseQueued(core_logistics->trash_pwd, argv, argc-1);                
                 break;        
         }
         
@@ -89,9 +60,16 @@ void ParseFlags(int argc, char *argv[])
                 break;      
         }
 
-        //making it this far is an error on the users part
-        fprintf(stderr, "%s invalid flag", use_flag);
-        break;
+        //TRM by default should delete the arguments provided if no other flags are conditioned
+        else {
+            //parse files to delete
+            ParseQueued(core_logistics->trash_pwd, argv, argc-1);
+            break;
+        } 
+
+        // //making it this far is an error on the users part
+        // fprintf(stderr, "%s invalid flag", use_flag);
+        // break;
 
     }
 

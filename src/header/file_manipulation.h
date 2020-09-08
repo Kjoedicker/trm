@@ -6,6 +6,9 @@
 
 #define SEPARATOR "/"
 
+//parse files to be deleted
+int ParseQueued(char *target_folder, char *target_files[], int total);
+
 //delete a file in a directory
 void DeleteFile(char *target_folder, char *target_file);
 

@@ -1,11 +1,24 @@
 #include "../header/main.h"
 
+int ParseQueued(char *target_folder, char *target_files[], int total)
+{
+    if ((total - 1) == 0)
+    {
+        DeleteFile(target_folder, target_files[total]);
+        return 0;
+    }
+
+    DeleteFile(target_folder, target_files[total]);
+    ParseQueued(target_folder, target_files, total-1);
+
+    return 0;
+}
+
 void DeleteFile(char *target_folder, char *target_file)
 {
     //(#2), what if we are deleting a file from another directory?
     //we need to access the execution path to properly handle the file
     char *pwd_path = getenv("PWD");
-
 
     //concat for pwd, inorder  to find target_file currently 
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(target_file) ) + 1);
@@ -73,7 +86,7 @@ void DeleteFile(char *target_folder, char *target_file)
 
     else
     {
-        fprintf(stderr, "%s - non existent", target_file_location);
+        fprintf(stderr, "trm: cannot remove \"%s\": No such file or directory\n", target_file_location);
     }
 }
 
