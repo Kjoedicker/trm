@@ -28,6 +28,12 @@ void DeleteFile(char *target_folder, char *target_file)
         target_file_location = malloc((sizeof(char) * strlen(target_file)) + 1);
         strcpy(target_file_location, target_file);
 
+        ParseFilePath(target_file);
+
+        printf("+%s+", target_file);
+
+        //implement parser for target_file to be reference wholestically
+
     }
 
     else {

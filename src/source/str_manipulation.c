@@ -28,5 +28,31 @@ int stripcmp(char *argv[], char match)
     return (stripped == match);
 }
 
+//parse a given file path for the appeneded file/directory name 
+void ParseFilePath(char *target_file)
+{   
+    int tf_index = 0;
+    
+    char *file_name = malloc(sizeof(char) * 50);
+    int index = 0;
+
+
+    for (; target_file[tf_index] != '\0'; tf_index++)
+    {
+        if (target_file[tf_index] == '/')
+        {
+            tf_index++;
+            index = 0;
+        }
+
+        file_name[index++] = target_file[tf_index];
+    }
+
+    file_name[index] = '\0';
+    
+    strcpy(target_file, file_name);
+    free(file_name);
+}
+
 
 

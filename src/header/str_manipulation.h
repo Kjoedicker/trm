@@ -11,4 +11,6 @@ enum cat_extension {KEEP_HEAD, FREE_HEAD};
 
 int stripcmp(char *argv[], char match);
 
+void ParseFilePath(char *target_file);
+
 #endif

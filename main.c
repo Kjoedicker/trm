@@ -260,10 +260,18 @@
 // }
 
 #include "src/header/main.h"
+
+
               
 int main(int argc, char *argv[], char **envp)
 {
     ParseFlags(argc, argv);
+ 
+
+
+
+
+
     // char test = argv[1][0];
     // printf("%c", test);
 
