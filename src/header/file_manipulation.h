@@ -4,8 +4,7 @@
 
 #include "main.h"
 
-//global seperator for concat_paths
-const char *SEPARATOR = "\\0";
+#define SEPARATOR "/"
 
 //delete a file in a directory
 void DeleteFile(char *target_folder, char *target_file);

@@ -10,15 +10,6 @@
 
 #include "logistics.h"
 
-// enum trash_state {TRASH_NULL, TRASH_EXIST};
-
-// struct Logistics {
-//     char trash_pwd[100];
-//     enum trash_state status;
-// };
-
-// struct Logistics *InitLogistics();
-
 //transform data
 #include "file_manipulation.h"
 #include "str_manipulation.h"

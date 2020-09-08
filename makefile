@@ -16,7 +16,7 @@ all: object clean
 %.o: $(SOURCE_DIR)
 	$(CC) -c $^
 
-object: data_initializers.o file_manipulation.o program_actions.o str_manipulation.o main.c
+object: data_initializers.o file_manipulation.o program_flow.o str_manipulation.o main.c
 	$(CC) -g -o $(PROG_NAME) $^
 
 val: object

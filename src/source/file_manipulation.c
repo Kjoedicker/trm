@@ -7,7 +7,6 @@ void DeleteFile(char *target_folder, char *target_file)
     char *pwd_path = getenv("PWD");
 
 
-
     //concat for pwd, inorder  to find target_file currently 
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(target_file) ) + 1);
     char *target_file_location = concat(size_of_pwd,
@@ -81,6 +80,7 @@ void DeleteFile(char *target_folder, char *target_file)
 void ListDir(char *target_folder, int size_details) 
 { 
     struct stat file_stat;
+
 
     //readdir() will access directory_stream returning a pointer to a entry to be accessed
     struct dirent *directory_entry;  
