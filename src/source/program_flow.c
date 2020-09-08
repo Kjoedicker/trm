@@ -1,8 +1,8 @@
 #include "../header/main.h"
 
 
-//based on the cli parameteres provided on runtime, act accordingly
-void DirectFlow(int argc, char *argv[])
+//filter parameters 
+void FilterParameters(int argc, char *argv[])
 {
     switch(argc)
     {
@@ -70,13 +70,13 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[VIEW_TRASH][CONCISE], use_flag) ||
             cmpstr(flags[VIEW_TRASH][VERBOSE], use_flag) ){
-                ViewTrash(core_logistics->trash_pwd, CONCISE);                
+                ListDir(core_logistics->trash_pwd, CONCISE);                
                 break;   
         }
 
         if (cmpstr(flags[VERBOSE_VIEW][CONCISE], use_flag) ||
             cmpstr(flags[VERBOSE_VIEW][VERBOSE], use_flag) ){
-                ViewTrash(core_logistics->trash_pwd, VERBOSE);
+                ListDir(core_logistics->trash_pwd, VERBOSE);
                 break;      
         }
 
@@ -89,58 +89,3 @@ void ParseFlags(int argc, char *argv[])
     free(core_logistics);
 }
 
-void ListDir(char *target_folder, int view_size) 
-{ 
-    struct stat file_stat;
-
-    //readdir() will access directory_stream returning a pointer to a entry to be accessed
-    struct dirent *directory_entry;  
-
-    //opendir returns a stream of files in the directory
-    DIR *directory_stream = opendir(target_folder);
-
-    if (directory_stream)
-    {
-        //access the next dirent in the directory_stream, filtering out '.' ".." path directives
-        while (((directory_entry = readdir(directory_stream)) != NULL) &&
-                (!(cmpstr(directory_entry->d_name, "."))) &&
-                (!(cmpstr(directory_entry->d_name, ".."))) )
-        {      
-            //because files in .trash are nested in a self named folder we need to append for that depth for the full pwd     
-            size_t filename_size = (strlen(target_folder) + (strlen(directory_entry->d_name) * 2)) + 2;
-            char *file_path = cat_path(filename_size,
-                                       cat_path(filename_size - strlen(directory_entry->d_name), 
-                                                target_folder, 
-                                                directory_entry->d_name,
-                                                KEEP_HEAD),
-                                       directory_entry->d_name,
-                                       FREE_HEAD);
-            
-            if (access(file_path, F_OK) + 1)
-            {
-                switch (view_size)
-                {
-                    case VERBOSE:
-                        stat(file_path, &file_stat);
-
-                        printf("%-25s %6u bytes\n", directory_entry->d_name, (unsigned int)file_stat.st_size);
-                        break;
-                    
-                    case CONCISE:
-                        printf("%s ", directory_entry->d_name);
-                        break;
-                }
-            }
-
-            free(file_path);   
-        }
-
-        closedir(directory_stream);     
-    }
-
-    else 
-    {
-        fprintf(stderr, "%s", strerror(errno));
-    }
-  
-} 

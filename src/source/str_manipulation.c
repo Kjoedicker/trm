@@ -12,7 +12,7 @@ char *cat_path(size_t allocation_size, char *head_pwd, char *tail_pwd, int head_
     char *destination = malloc(sizeof (char) * (allocation_size + 2));
     
     strcpy(destination, head_pwd);
-    strcat(destination, "/");
+    strcat(destination,"/");
     strcat(destination, tail_pwd);
 
     if (head_direction == FREE_HEAD) { free(head_pwd); }

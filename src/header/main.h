@@ -27,7 +27,7 @@
 #include "data_initializers.h"
 
 //act according to data
-#include "program_actions.h"
+#include "program_flow.h"
 
 #define DATA_SIZE 1000
 
