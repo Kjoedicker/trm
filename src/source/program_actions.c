@@ -9,7 +9,7 @@ void DirectFlow(int argc, char *argv[])
         case 1:
             fprintf(stderr, "Error - no parameters provided\n");
             break;
-        
+        //(#1) -v will not work without additional parameters, problamatic
         case 2:
             if(!(stripcmp(argv, '-')))
             {
