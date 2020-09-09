@@ -261,12 +261,50 @@
 
 #include "src/header/main.h"
 
+struct Argument {
+    char *argument;
+    int IsPath;
+    char *current_pwd;
+    char *destination_pwd;
+};
+
+int IsPath(char *argument)
+{   
+    int index = 0;
+    for (; argument[index] != '\0'; index++)
+    {
+        if (argument[index] == '/')
+        {
+            return 1;
+        }      
+    }
+
+    return 0;
+}
+
+char *getPWD(char *argument)
+{
+
+}
+
+struct Argument *strip(char *argument)
+{
+    struct Argument *new_argument = malloc(sizeof(struct Argument));
+    new_argument->argument = argument;
+    new_argument->IsPath = IsPath(argument);
+    printf("%d", new_argument->IsPath);
+
+
+    // new_argument->current_pwd = getPWD(argument);
+};
+
 
               
 int main(int argc, char *argv[], char **envp)
 {
-    ParseFlags(argc, argv);
- 
+    // ParseFlags(argc, argv);
+    struct Argument *zero = strip(argv[1]);
+    
 
 
 
