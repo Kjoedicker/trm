@@ -1,7 +1,6 @@
 #include "../header/main.h"
 
 
-
 void ListDir(char *target_folder, int size_details) 
 { 
     struct stat file_stat;

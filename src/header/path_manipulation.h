@@ -5,10 +5,8 @@
 
 struct Argument {
     char *file_path;
-    char *parsed_file_path;
-    int IsPath;
-    char *current_pwd;
     char *destination_pwd;
+    char *parsed_file_path;
 };
 
 //data

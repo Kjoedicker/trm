@@ -64,9 +64,7 @@ struct Argument *strip(char *file_path)
     current_file->file_path = malloc(sizeof(char) * 25);
     strcpy(current_file->file_path, file_path);
     
-    current_file->IsPath = IsPath(file_path);
-
-    if (current_file->IsPath)
+    if (IsPath(file_path))
     {
         //need a stripped down version to get the filename
         current_file->parsed_file_path = ParseFilePath(file_path);

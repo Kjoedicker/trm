@@ -1,6 +1,3 @@
-Remove: 
+Removed Argument->IsPath for redunancy issues
 
-void WriteFile();
-char * ReadFile();
 
-prototypes
