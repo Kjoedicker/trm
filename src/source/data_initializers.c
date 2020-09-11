@@ -33,7 +33,7 @@ struct Logistics *InitLogistics()
                                 : IS_NULL;
 
     //determines if we will attempt to create a .trace folder
-    core_logistics->trash_status = (access(core_logistics->trace_file_loc, F_OK) == 0) 
+    core_logistics->trace_status = (access(core_logistics->trace_file_loc, F_OK) == 0) 
                                 ? EXIST
                                 : IS_NULL;
 

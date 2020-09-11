@@ -44,7 +44,7 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[DELETE][CONCISE], use_flag) ||
             cmpstr(flags[DELETE][VERBOSE], use_flag) ){
-                ParseQueuedFiles(core_logistics->trash_pwd, argv, argc-1);                
+                ParseQueuedFiles(core_logistics, &DeleteFile, argv, argc-1);
                 break;        
         }
         
@@ -63,7 +63,7 @@ void ParseFlags(int argc, char *argv[])
         //TRM by default should delete the arguments provided if no other flags are conditioned
         else {
             //parse files to delete
-            ParseQueuedFiles(core_logistics->trash_pwd, argv, argc-1);
+            ParseQueuedFiles(core_logistics, &DeleteFile, argv, argc-1); 
             break;
         } 
 

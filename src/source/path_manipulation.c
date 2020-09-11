@@ -1,26 +1,24 @@
 #include "../header/main.h"
 
-
-
-
-int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
+int ParseQueuedFiles(struct Logistics *core_logistics, 
+                    void (*Execute) (struct Logistics *core_logistics, 
+                    struct Argument *target_file), 
+                    char *target_files[], 
+                    int total)
 {
     struct Argument *parsed_file = strip(target_files[total]);
 
     if ((total - 1) == 0)
     {
-        printf("%s\n", parsed_file->parsed_file_path);
-        // DeleteFile(target_folder, target_files[total]);
-        
+        Execute(core_logistics, parsed_file);
         free_Argument(parsed_file);
         return 0;
     }
 
     // DeleteFile(target_folder, target_files[total]);
 
-    printf("%s\n", parsed_file->parsed_file_path);
-    ParseQueuedFiles(target_folder, target_files, total-1);
-
+    Execute(core_logistics, parsed_file);
+    ParseQueuedFiles(core_logistics, Execute, target_files, total-1);
     free_Argument(parsed_file);
     return 0;
 }
@@ -61,10 +59,11 @@ struct Argument *strip(char *file_path)
 {
     struct Argument *current_file = malloc(sizeof(struct Argument));
 
-    current_file->file_path = malloc(sizeof(char) * 25);
+    current_file->file_path = malloc(sizeof(char) * 50);
     strcpy(current_file->file_path, file_path);
-    
-    if (IsPath(file_path))
+
+
+    if (IsPath(current_file->file_path))
     {
         //need a stripped down version to get the filename
         current_file->parsed_file_path = ParseFilePath(file_path);
@@ -72,12 +71,18 @@ struct Argument *strip(char *file_path)
 
     else 
     {
+        current_file->parsed_file_path = malloc(sizeof(char) * 50);
+
         //a stripped down path was already provided
-        strcpy(current_file->parsed_file_path, file_path);
+        strcpy(current_file->parsed_file_path, current_file->file_path);
 
         //however a full path needs to be created
         current_file->file_path = GetFilePWD(current_file);
     }
+
+    current_file->logistics = InitLogistics();
+
+    current_file->destination_pwd = concat(50, current_file->logistics->trash_pwd, "/", current_file->parsed_file_path, KEEP_HEAD);
 
     return current_file;
 };
@@ -85,6 +90,8 @@ struct Argument *strip(char *file_path)
 
 void free_Argument(struct Argument *target)
 {
+    free(target->logistics);
+    free(target->destination_pwd);
     free(target->parsed_file_path);
     free(target->file_path);
     free(target);
@@ -108,17 +115,23 @@ int IsPath(char *file_path)
 //based on the current director and the filename, return a full file path to the file
 char *GetFilePWD(struct Argument *file)
 {
+    char file_path[50];
+    strcpy(file_path, file->file_path);
+    free(file->file_path);
+    
     char *pwd_path = getenv("PWD");
 
     char *full_PWD;
 
+    
     //we need to access the execution path to properly handle the file
     
-    size_t size_of_pwd = ( (strlen(pwd_path) + strlen(file->file_path) ) + 1);
+    size_t size_of_pwd = ( (strlen(pwd_path) + strlen(file_path) ) + 1);
+    
     full_PWD = concat(size_of_pwd,
                                     pwd_path,
                                     SEPARATOR,
-                                    file->file_path, 
+                                    file_path, 
                                     KEEP_HEAD);
 
     return full_PWD;

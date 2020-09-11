@@ -5,6 +5,10 @@
 int main(int argc, char *argv[], char **envp)
 {
     ParseFlags(argc, argv);
+    // struct Logistics *core_logistics = InitLogistics();
+
+
+    // DeleteFile(core_logistics, strip(argv[1]));
 
     // struct Argument *zero = strip(argv[1]);
 

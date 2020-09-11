@@ -1,6 +1,21 @@
 #include "../header/main.h"
 
+void DeleteFile(struct Logistics *core_logistics, struct Argument *target_file)
+{   
+    printf("%s", target_file->destination_pwd);
+    if (!(access(target_file->destination_pwd, F_OK)) == 0)
+    {
+        rename(target_file->file_path, target_file->destination_pwd);
+        InitTraceFile(core_logistics->trace_file_loc,  target_file->file_path);
+    }
 
+    else {
+        //(#3) what if multiple files with the same name exist?
+        printf("err, file already exists\n");
+    }
+}
+
+//(#4) update to account for updated .trash directory
 void ListDir(char *target_folder, int size_details) 
 { 
     struct stat file_stat;
@@ -10,9 +25,10 @@ void ListDir(char *target_folder, int size_details)
 
     //opendir returns a stream of files in the directory
     DIR *directory_stream = opendir(target_folder);
-
+    
     if (directory_stream)
     {
+        printf("here");
         //access the next dirent in the directory_stream, filtering out '.' ".." path directives
         while (((directory_entry = readdir(directory_stream)) != NULL) &&
                 (!(cmpstr(directory_entry->d_name, "."))) &&
@@ -32,6 +48,7 @@ void ListDir(char *target_folder, int size_details)
             
             if (access(file_path, F_OK) + 1)
             {
+                printf("here");
                 switch (size_details)
                 {
                     case VERBOSE:
