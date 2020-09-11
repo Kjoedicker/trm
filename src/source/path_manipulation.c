@@ -2,17 +2,21 @@
 
 int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
 {
-    struct Argument **parsed_files = malloc(sizeof(struct Argument) * total-1);
+    struct Argument *parsed_file = strip(target_files[total]);
 
     if ((total - 1) == 0)
     {
-        DeleteFile(target_folder, target_files[total]);
+        printf("%s\n", parsed_file->parsed_argument);
+        // DeleteFile(target_folder, target_files[total]);
+        free(parsed_file);
         return 0;
     }
 
-    DeleteFile(target_folder, target_files[total]);
+    // DeleteFile(target_folder, target_files[total]);
+    printf("%s\n", parsed_file->parsed_argument);
     ParseQueuedFiles(target_folder, target_files, total-1);
 
+    free(parsed_file);
     return 0;
 }
 

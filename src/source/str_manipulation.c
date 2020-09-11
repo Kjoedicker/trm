@@ -28,35 +28,6 @@ int stripcmp(char *argv[], char match)
     return (stripped == match);
 }
 
-//parse a given file path for the appeneded file/directory name 
-char *ParseFilePath(char *argument)
-{   
-    //copy over so we can work with a terminated string
-    char *provided_path = malloc(sizeof(char) * 25);
-    strcpy(provided_path, argument);
-
-    char *parsed_name = malloc(sizeof(char) * 50);
-    int index = 0;
-
-    for (int pp_index = 0; provided_path[pp_index] != '\0'; pp_index++)
-    {
-        //skip this and restart index to write over parsed_name from the beginning
-        if (provided_path[pp_index] == '/')
-        {
-            pp_index++;
-            index = 0;
-        }
-
-        parsed_name[index++] = provided_path[pp_index];
-    }
-
-    //we write over parsed_name every '/', each write over varies in size so its important to mark the end.
-    parsed_name[index] = '\0';
-
-    free(provided_path);
-
-    return parsed_name;
-}
 
 
 
