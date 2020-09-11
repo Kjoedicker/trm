@@ -20,6 +20,9 @@
 //act according to data
 #include "program_flow.h"
 
+//for parsing provided paths
+#include "path_manipulation.h"
+
 #define DATA_SIZE 1000
 
 #define FILE_PERMISSIONS 0755

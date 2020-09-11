@@ -1,18 +1,6 @@
 #include "../header/main.h"
 
-int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
-{
-    if ((total - 1) == 0)
-    {
-        DeleteFile(target_folder, target_files[total]);
-        return 0;
-    }
 
-    DeleteFile(target_folder, target_files[total]);
-    ParseQueuedFiles(target_folder, target_files, total-1);
-
-    return 0;
-}
 
 void DeleteFile(char *target_folder, char *target_file)
 {
