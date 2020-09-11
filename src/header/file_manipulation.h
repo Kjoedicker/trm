@@ -11,8 +11,7 @@ void DeleteFile(struct Logistics *core_logistics, struct Argument *target_file);
 
 void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path);
 
-void WriteFile();
-char * ReadFile();
+
 
 //view the contents of directory
 void ListDir(char *target_folder, int size_details);
