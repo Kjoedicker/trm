@@ -1,7 +1,6 @@
 #include "../header/main.h"
 
-void WriteFile();
-char * ReadFile();
+
 
 void ListDir(char *target_folder, int size_details) 
 { 
