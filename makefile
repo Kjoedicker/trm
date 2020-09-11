@@ -27,12 +27,15 @@ val: object
 gdb: object
 	grdb ./$(PROG_NAME)
 
+
+BRANCH := $(shell eval 'git branch --show-current')
+
 git:
 	git add .
 	git commit -F commit.txt
-	git push origin $(git branch --show-current)
+	git push origin $(shell eval 'git branch --show-current')
 	echo > commit.txt
-
+	
 clean:
 	rm *.o
 
