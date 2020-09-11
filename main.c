@@ -5,6 +5,7 @@
 int main(int argc, char *argv[], char **envp)
 {
     ParseFlags(argc, argv);
+
     // struct Argument *zero = strip(argv[1]);
 
     // struct Argument **arg = malloc(sizeof(struct Argument) * 2);

@@ -1,5 +1,5 @@
-Changed InitLogistics() to grab the trash folder via enviromental variables set through .bashrc
+InitLogitics grabs and stores the trash_status and trace_status of the .trash folder
 
-Changed Makefile to account for new object files and handling git commits dynamically for different branches
+InitTrashfolders checks the status and calls to InitFolder to create if needed
 
-Reimplemented DeleteFile() to take in Logstics and Argument member for its logic
+InitFolder implemented to create a folder in a specified directory

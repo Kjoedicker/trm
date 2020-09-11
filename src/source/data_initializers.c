@@ -21,30 +21,58 @@ struct Logistics *InitLogistics()
     //trash is a constant, but the HOME env changes so we need to grab that pwd and concat it for later reference
     //set TRASH_FOLDER as alias in bashrc 
     char *home_path  = getenv("TRASH_FOLDER");
-
     strcpy(core_logistics->trash_pwd, home_path);
-    
+
+    //make a reference to the trace folder
+    strcpy(core_logistics->trace_file_loc, core_logistics->trash_pwd);
+    strcat(core_logistics->trace_file_loc, "/.trace");
+
     //determines if we will attempt to create a trash folder
-    core_logistics->status = (access(core_logistics->trash_pwd, F_OK) == 0) 
-                                ? TRASH_EXIST
-                                : TRASH_NULL;
+    core_logistics->trash_status = (access(core_logistics->trash_pwd, F_OK) == 0)                              
+                                ? EXIST
+                                : IS_NULL;
+
+    //determines if we will attempt to create a .trace folder
+    core_logistics->trash_status = (access(core_logistics->trace_file_loc, F_OK) == 0) 
+                                ? EXIST
+                                : IS_NULL;
 
     //incase trash folder doesn't exist
-    InitTrashFolder(core_logistics);
+    InitTrashFolders(core_logistics);
 
     return core_logistics;
 }
 
-//create the trash folder if non existent
-void InitTrashFolder(struct Logistics *core_logistics)
+//chech if .trash || .trace needs to be created
+void InitTrashFolders(struct Logistics *core_logistics)
 {
     //if the trash folder exists nothing needs to be done
-    if (core_logistics->status) { return; }
-
-    int file_exists;
-    if ((file_exists = mkdir(core_logistics->trash_pwd, 0755)) == 0)
+    if (core_logistics->trash_status &&
+        core_logistics->trace_status) { 
+            return; 
+    }
+    //if there isn't a .trash folder create one
+    if (!core_logistics->trash_status)
     {
-        printf("%s - Created\n", core_logistics->trash_pwd);
+        InitFolder(core_logistics->trash_pwd);
+    }
+
+    //if there isn't a .trash/.trace folder create one
+    if (!core_logistics->trace_status)
+    {
+        InitFolder(core_logistics->trace_file_loc);
+    }
+
+    return;
+}
+
+//create a folder
+void InitFolder(char *folder)
+{
+    int file_exists;
+    if ((file_exists = mkdir(folder, 0755)) == 0)
+    {
+        printf("%s - Created\n", folder);
     }
 
     else 

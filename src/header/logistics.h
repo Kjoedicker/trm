@@ -2,11 +2,13 @@
 #define LOGISTICS
 
 //does a /.trash file exist
-enum trash_state {TRASH_NULL, TRASH_EXIST};
+enum state {IS_NULL, EXIST};
 
 struct Logistics {
     char trash_pwd[100];
-    enum trash_state status;
+    char trace_file_loc[100];
+    enum state trash_status;
+    enum state trace_status;
 };
 
 struct Logistics *InitLogistics();
