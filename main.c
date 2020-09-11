@@ -4,14 +4,14 @@
               
 int main(int argc, char *argv[], char **envp)
 {
-    // ParseFlags(argc, argv);
+    ParseFlags(argc, argv);
     // struct Argument *zero = strip(argv[1]);
 
     // struct Argument **arg = malloc(sizeof(struct Argument) * 2);
     // arg[0] = zero;
     // printf("%s", arg[0]->parsed_argument);
 
-    ParseQueuedFiles("~/.trash/", argv, argc-1);
+    // ParseQueuedFiles("~/.trash/", argv, argc-1);
 
 
 

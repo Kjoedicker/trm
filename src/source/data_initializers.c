@@ -19,12 +19,11 @@ struct Logistics *InitLogistics()
     struct Logistics *core_logistics = malloc(sizeof(struct Logistics));
     
     //trash is a constant, but the HOME env changes so we need to grab that pwd and concat it for later reference
-    char *home_path  = getenv("HOME"),
-         *trash_path = "/.trash";
+    //set TRASH_FOLDER as alias in bashrc 
+    char *home_path  = getenv("TRASH_FOLDER");
 
     strcpy(core_logistics->trash_pwd, home_path);
-    strcat(core_logistics->trash_pwd, trash_path);
-
+    
     //determines if we will attempt to create a trash folder
     core_logistics->status = (access(core_logistics->trash_pwd, F_OK) == 0) 
                                 ? TRASH_EXIST

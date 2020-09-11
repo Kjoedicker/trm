@@ -7,7 +7,7 @@ SOURCE_DIR = src/source/%.c
 OBJ_DIR = $(OBJ_DIR)/%.c
 OBJ_PWD = src/obc/
 
-OBJS = data_initializers.o file_manipulation.o program_flow.o str_manipulation.o path_manipulation.o
+OBJS = 
 
 test = $(shell ls src/header)
 
@@ -18,7 +18,7 @@ all: object clean
 %.o: $(SOURCE_DIR)
 	$(CC) -c $^
 
-object: $(OBJS) main.c
+object: data_initializers.o file_manipulation.o program_flow.o str_manipulation.o path_manipulation.o main.c
 	$(CC) -g -o $(PROG_NAME) $^
 
 val: object
@@ -29,16 +29,14 @@ gdb: object
 
 git:
 	git add .
-	git commit
+	git commit -F commit.txt
+	git push origin $(git branch --show-current)
+	echo > commit.txt
 
 clean:
 	rm *.o
 
 
-
-
-# objectfiles:
-# 	$(CC) -c main.c $(SOURCE_DIR) $(CFLAGS)
 
 
 

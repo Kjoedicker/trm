@@ -10,6 +10,9 @@
 
 #include "logistics.h"
 
+//for parsing provided paths
+#include "path_manipulation.h"
+
 //transform data
 #include "file_manipulation.h"
 #include "str_manipulation.h"
@@ -20,8 +23,7 @@
 //act according to data
 #include "program_flow.h"
 
-//for parsing provided paths
-#include "path_manipulation.h"
+
 
 #define DATA_SIZE 1000
 

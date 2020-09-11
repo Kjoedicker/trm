@@ -1,22 +1,26 @@
-#ifndef PATH_MANIPULATION
-#define PATH_MANIPULATION
+#ifndef PATH_MANIPULATION1
+#define PATH_MANIPULATION1
+
+#include "main.h"
 
 struct Argument {
-    char *argument;
-    char *parsed_argument;
+    char *file_path;
+    char *parsed_file_path;
     int IsPath;
     char *current_pwd;
     char *destination_pwd;
 };
 
 //data
-struct Argument *strip(char *argument);
+struct Argument *strip(char *file_path);
 
 //action
 char *ParseFilePath(char *target_file);
+char *GetFilePWD(struct Argument *file);
+
 
 //logic
-int IsPath(char *argument);
+int IsPath(char *file_path);
 
 int ParseQueuedFiles(char *target_folder, char *target_files[], int total);
 

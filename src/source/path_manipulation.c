@@ -1,12 +1,15 @@
 #include "../header/main.h"
 
+
+
+
 int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
 {
     struct Argument *parsed_file = strip(target_files[total]);
 
     if ((total - 1) == 0)
     {
-        printf("%s\n", parsed_file->parsed_argument);
+        printf("%s\n", parsed_file->parsed_file_path);
         // DeleteFile(target_folder, target_files[total]);
         
         free_Argument(parsed_file);
@@ -14,7 +17,8 @@ int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
     }
 
     // DeleteFile(target_folder, target_files[total]);
-    printf("%s\n", parsed_file->parsed_argument);
+
+    printf("%s\n", parsed_file->parsed_file_path);
     ParseQueuedFiles(target_folder, target_files, total-1);
 
     free_Argument(parsed_file);
@@ -22,11 +26,11 @@ int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
 }
 
 //given a path, return the destination
-char *ParseFilePath(char *argument)
+char *ParseFilePath(char *file_path)
 {   
     //copy over so we can work with a terminated string
     char *provided_path = malloc(sizeof(char) * 25);
-    strcpy(provided_path, argument);
+    strcpy(provided_path, file_path);
 
     char *parsed_name = malloc(sizeof(char) * 50);
     int index = 0;
@@ -53,39 +57,72 @@ char *ParseFilePath(char *argument)
 
 
 //take the path provided in the command line and strip it down into usuable chunks
-struct Argument *strip(char *argument)
+struct Argument *strip(char *file_path)
 {
-    struct Argument *parsed_argument = malloc(sizeof(struct Argument));
+    struct Argument *current_file = malloc(sizeof(struct Argument));
 
-    parsed_argument->argument = malloc(sizeof(char) * 25);
-    strcpy(parsed_argument->argument, argument);
+    current_file->file_path = malloc(sizeof(char) * 25);
+    strcpy(current_file->file_path, file_path);
+    
+    current_file->IsPath = IsPath(file_path);
 
-    parsed_argument->parsed_argument = ParseFilePath(argument);
-    parsed_argument->IsPath = IsPath(argument);
+    if (current_file->IsPath)
+    {
+        //need a stripped down version to get the filename
+        current_file->parsed_file_path = ParseFilePath(file_path);
+    }
 
-    return parsed_argument;
+    else 
+    {
+        //a stripped down path was already provided
+        strcpy(current_file->parsed_file_path, file_path);
+
+        //however a full path needs to be created
+        current_file->file_path = GetFilePWD(current_file);
+    }
+
+    return current_file;
 };
 
 
 void free_Argument(struct Argument *target)
 {
-    free(target->parsed_argument);
-    free(target->argument);
+    free(target->parsed_file_path);
+    free(target->file_path);
     free(target);
 }
 
 //return 0 : 1 if full path to a file 
-int IsPath(char *argument)
+int IsPath(char *file_path)
 {   
     int index = 0;
-    for (; argument[index] != '\0'; index++)
+    for (; file_path[index] != '\0'; index++)
     {
-        if (argument[index] == '/')
+        if (file_path[index] == '/')
         {
             return 1;
         }      
     }
 
     return 0;
+}
+
+//based on the current director and the filename, return a full file path to the file
+char *GetFilePWD(struct Argument *file)
+{
+    char *pwd_path = getenv("PWD");
+
+    char *full_PWD;
+
+    //we need to access the execution path to properly handle the file
+    
+    size_t size_of_pwd = ( (strlen(pwd_path) + strlen(file->file_path) ) + 1);
+    full_PWD = concat(size_of_pwd,
+                                    pwd_path,
+                                    SEPARATOR,
+                                    file->file_path, 
+                                    KEEP_HEAD);
+
+    return full_PWD;
 }
 

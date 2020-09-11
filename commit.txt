@@ -1,0 +1,5 @@
+Changed InitLogistics() to grab the trash folder via enviromental variables set through .bashrc
+
+Changed Makefile to account for new object files
+
+Reimplemented DeleteFile() to take in Logstics and Argument member for its logic
