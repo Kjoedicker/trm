@@ -20,4 +20,8 @@ int IsPath(char *argument);
 
 int ParseQueuedFiles(char *target_folder, char *target_files[], int total);
 
+//free all of the malloc'd data before freeing itself
+void free_Argument(struct Argument *target);
+
+
 #endif

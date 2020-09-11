@@ -8,7 +8,8 @@ int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
     {
         printf("%s\n", parsed_file->parsed_argument);
         // DeleteFile(target_folder, target_files[total]);
-        free(parsed_file);
+        
+        free_Argument(parsed_file);
         return 0;
     }
 
@@ -16,7 +17,7 @@ int ParseQueuedFiles(char *target_folder, char *target_files[], int total)
     printf("%s\n", parsed_file->parsed_argument);
     ParseQueuedFiles(target_folder, target_files, total-1);
 
-    free(parsed_file);
+    free_Argument(parsed_file);
     return 0;
 }
 
@@ -64,6 +65,14 @@ struct Argument *strip(char *argument)
 
     return parsed_argument;
 };
+
+
+void free_Argument(struct Argument *target)
+{
+    free(target->parsed_argument);
+    free(target->argument);
+    free(target);
+}
 
 //return 0 : 1 if full path to a file 
 int IsPath(char *argument)
