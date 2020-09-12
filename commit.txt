@@ -1,3 +1,3 @@
-fixed ListDir to account for changing .trash folder structure
 
+deprecated InitCoreLogistics in ParseFlags for ParseQueuedFiles, updated ParseQueuedFiles, DeleteFile and ParseFlags to reflect
 

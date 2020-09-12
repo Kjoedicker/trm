@@ -7,6 +7,7 @@ struct Argument {
     char *file_path;
     char *destination_pwd;
     char *parsed_file_path;
+    char *trace_file_loc;
 
     struct Logistics *logistics;
 };
@@ -23,10 +24,9 @@ char *GetFilePWD(struct Argument *file);
 int IsPath(char *file_path);
 
 // int ParseQueuedFiles(char *target_folder, char *target_files[], int total);
-int ParseQueuedFiles(struct Logistics *core_logistics, 
-                    void (*Execute) (struct Logistics *core_logistics, struct Argument *target_file), 
-                    char *target_files[], 
-                    int total);
+int ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
+                     char *target_files[], 
+                     int total);
 
 
 //free all of the malloc'd data before freeing itself
