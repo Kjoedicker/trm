@@ -1,3 +1,3 @@
-refactored DeleteFile comment to adjust for 
+fixed ListDir to account for changing .trash folder structure
 
-the file needs to exist, and the destination needs to not already exist, until we make that feature.
+
