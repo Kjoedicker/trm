@@ -1,3 +1,3 @@
-core_logistics->trace_file_loc appended to account for .trace file subfolder containing restore point
+refactored DeleteFile comment to adjust for 
 
-added extra checkpoint on DeleteFile if condition to ensure that the destination and original location exist
+the file needs to exist, and the destination needs to not already exist, until we make that feature.
