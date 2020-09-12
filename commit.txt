@@ -1,5 +1,1 @@
-Implemented DeleteFile raising an issue towards files of the same name being deleted
-
-Update ListDir to account for changing trace_folder loc
-
-Fixed memory leak in GetFilePWD
+edited makefile to include vi, ls commands

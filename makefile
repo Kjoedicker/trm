@@ -36,8 +36,16 @@ git:
 	git push origin $(shell eval 'git branch --show-current')
 	echo > commit.txt
 
+
+ls:
+	ls ~/.trash
+
+vi:
+	vim ~/.trash
+	
 clean:
 	rm *.o
+	rm *vgcore*
 
 
 

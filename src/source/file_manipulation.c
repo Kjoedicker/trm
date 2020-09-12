@@ -3,7 +3,7 @@
 void DeleteFile(struct Logistics *core_logistics, struct Argument *target_file)
 {   
     printf("%s", target_file->destination_pwd);
-    if (!(access(target_file->destination_pwd, F_OK)) == 0)
+    if (!(access(target_file->destination_pwd, F_OK) == 0))
     {
         rename(target_file->file_path, target_file->destination_pwd);
         InitTraceFile(core_logistics->trace_file_loc,  target_file->file_path);
