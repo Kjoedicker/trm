@@ -1,3 +1,0 @@
-
-deprecated InitCoreLogistics in ParseFlags for ParseQueuedFiles, updated ParseQueuedFiles, DeleteFile and ParseFlags to reflect
-
