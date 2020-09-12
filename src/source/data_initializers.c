@@ -4,7 +4,6 @@
 //in ~/.trash/deleted_file => creates a file containing pre deletion pwd for restoration
 void InitTraceFile(char *location,  char *message)
 {
-    printf("%s\n", location);
     FILE *file_p;
     file_p = fopen(location, "w+");
 
@@ -39,6 +38,7 @@ struct Logistics *InitLogistics()
 
     //incase trash folder doesn't exist
     InitTrashFolders(core_logistics);
+    
 
     return core_logistics;
 }

@@ -45,7 +45,7 @@ vi:
 	
 clean:
 	rm *.o
-	rm *vgcore*
+	# rm *vgcore*
 
 
 

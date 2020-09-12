@@ -8,6 +8,10 @@ int ParseQueuedFiles(struct Logistics *core_logistics,
 {
     struct Argument *parsed_file = strip(target_files[total]);
 
+    //append for path to trace file subfolder
+    strcat(core_logistics->trace_file_loc, "/.");
+    strcat(core_logistics->trace_file_loc, parsed_file->parsed_file_path);
+
     if ((total - 1) == 0)
     {
         Execute(core_logistics, parsed_file);
