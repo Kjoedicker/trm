@@ -42,12 +42,19 @@ ls:
 vi:
 	vim ~/.trash
 
-test:
+test-rm:
 	-rm 1 2 3 4 5
 	touch 1 2 3 4 5
 	./trm 1 2 3 4 5
 	./trm -V
 
+test-r:
+	./trm -R 1
+	./trm -R 2
+	./trm -R 3
+	./trm -R 4
+	./trm -R 5
+	
 clean:
 	-rm *.o
 

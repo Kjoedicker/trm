@@ -85,14 +85,13 @@ char *read_message(char *file_path)
     fp = fopen(file_path, "r");
     
     fgets(buff, 100, (FILE*)fp);
-    printf("%s", buff);
 
     fclose(fp);
     return buff;
 }
 
          
-
+//(#9) what if we want to restore multiple files?
 //(#6) what if restore_path wants to just target a directory without having to specify the name of the file when it goes there. /home/usr/file_name vs /home/usr
 void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
 {   
@@ -112,7 +111,8 @@ void RestoreFile(struct Logistics *core_logistics, char *target_file, char *rest
                                    target_file,
                                    KEEP_HEAD);
 
-    restore_path = read_message(trace_file_path); 
+    restore_path = (restore_path == NULL) ? read_message(trace_file_path) : restore_path;
+    printf("restore_path = %s\n", restore_path); 
 
     if (access(trace_file_path, F_OK) == 0)
     {
