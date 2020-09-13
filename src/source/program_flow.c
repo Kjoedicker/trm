@@ -48,13 +48,13 @@ void ParseFlags(int argc, char *argv[])
         
         if (cmpstr(flags[VIEW_TRASH][CONCISE], use_flag) ||
             cmpstr(flags[VIEW_TRASH][VERBOSE], use_flag) ){
-                // ListDir(core_logistics->trash_pwd, CONCISE);                
+                ListDir(InitLogistics(), CONCISE);                
                 break;   
         }
 
         if (cmpstr(flags[VERBOSE_VIEW][CONCISE], use_flag) ||
             cmpstr(flags[VERBOSE_VIEW][VERBOSE], use_flag) ){
-                // ListDir(core_logistics->trash_pwd, VERBOSE);
+                ListDir(InitLogistics(), VERBOSE);
                 break;      
         }
 

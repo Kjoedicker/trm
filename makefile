@@ -22,11 +22,10 @@ object: data_initializers.o file_manipulation.o program_flow.o str_manipulation.
 	$(CC) -g -o $(PROG_NAME) $^
 
 val: object
-	valgrind --leak-check=full ./$(PROG_NAME)
+	valgrind --leak-check=full ./$(PROG_NAME) -V
 
 gdb: object
 	grdb ./$(PROG_NAME)
-
 
 BRANCH := $(shell eval 'git branch --show-current')
 
@@ -42,10 +41,19 @@ ls:
 
 vi:
 	vim ~/.trash
-	
+
+test:
+	-rm 1 2 3 4 5
+	touch 1 2 3 4 5
+	./trm 1 2 3 4 5
+	./trm -V
+
 clean:
-	rm *.o
-	# rm *vgcore*
+	-rm *.o
+
+clean-all:
+	-rm *.o
+	-rm *vgcore*
 
 
 

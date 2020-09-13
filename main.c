@@ -1,10 +1,11 @@
 
 #include "src/header/main.h"
-
-              
+     
 int main(int argc, char *argv[], char **envp)
 {
-    ParseFlags(argc, argv);
+    RestoreFile(InitLogistics(), argv[1], 1);
+    // ParseFlags(argc, argv);
+    // rename("/home/keifer/.trash/1", "/home/keifer/1");
     // struct Logistics *core_logistics = InitLogistics();
 
 

@@ -13,7 +13,8 @@ void RestoreFile(struct Logistics *core_logistics, char *target_file, char *rest
 
 //view the contents of directory
 //(#5 edit to take Argument member)
-void ListDir(char *target_folder, int size_details);
+void ListDir(struct Logistics *core_logistics, int size_details);
+
 enum action_verbosity {CONCISE, VERBOSE};
 
 

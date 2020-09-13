@@ -16,9 +16,12 @@ void DeleteFile(struct Argument *target_file)
     }
 }
 
-//(#4) update to account for updated .trash directory
-void ListDir(char *target_folder, int size_details) 
+void ListDir(struct Logistics *core_logistics, int size_details) 
 { 
+
+    char target_folder[strlen(core_logistics->trash_pwd) + 1];
+    strcpy(target_folder, core_logistics->trash_pwd);
+
     struct stat file_stat;
 
     //readdir() will access directory_stream returning a pointer to a entry to be accessed
@@ -70,15 +73,56 @@ void ListDir(char *target_folder, int size_details)
     {
         fprintf(stderr, "%s", strerror(errno));
     }
-  
-} 
 
-void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
+    free(core_logistics);  
+}
+
+char *read_message(char *file_path)
 {
-    //direct flow for restoring to original directory, or current/specified directory.
+    FILE *fp;
+    char *buff = malloc(sizeof(char) * 100);
+
+    fp = fopen(file_path, "r");
     
+    fgets(buff, 100, (FILE*)fp);
+    printf("%s", buff);
+
+    fclose(fp);
+    return buff;
+}
+
+         
+
+//(#6) what if restore_path wants to just target a directory without having to specify the name of the file when it goes there. /home/usr/file_name vs /home/usr
+void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
+{   
+    // (#7) implement GetSize function for these size specifiers
+    size_t sizeof_trash_path = (strlen(core_logistics->trash_pwd) + strlen(target_file) + 2);
+    char *file_loc = concat(sizeof_trash_path,
+                            core_logistics->trash_pwd,
+                            "/",
+                            target_file,
+                            KEEP_HEAD);
 
 
+    size_t sizeof_trace_path = (strlen(core_logistics->trace_file_loc) + strlen(target_file) + 2);
+    char *trace_file_path = concat(sizeof_trace_path,
+                                   core_logistics->trace_file_loc,
+                                   "/.",
+                                   target_file,
+                                   KEEP_HEAD);
+
+    restore_path = read_message(trace_file_path); 
+
+    if (access(trace_file_path, F_OK) == 0)
+    {
+        rename(file_loc, restore_path);
+    }
+
+    free(restore_path);
+    free(file_loc);
+    free(trace_file_path);
+    free(core_logistics);
 }
 
 
