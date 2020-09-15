@@ -10,6 +10,7 @@ int cmpstr(char *a, char *b)
 char *concat(size_t allocation_size, char *head_pwd, char *separator, char *tail_pwd, int head_direction)
 {
     char *destination = malloc(sizeof (char) * (allocation_size + 2));
+
     
     strcpy(destination, head_pwd);
     strcat(destination, separator);

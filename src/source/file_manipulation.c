@@ -2,18 +2,31 @@
 
 void DeleteFile(struct Argument *target_file)
 {   
+
+    //only files that being deleted should need to worrry about having a trace_file_loc
+    char *separator = "/.\0";
+    size_t trace_file_loc_size = (strlen(target_file->logistics->trace_file_loc) + 
+                                    strlen(separator) + 
+                                    strlen(target_file->parsed_file_path));
+
+    target_file->trace_file_loc = concat(trace_file_loc_size, target_file->logistics->trace_file_loc, separator, target_file->parsed_file_path, KEEP_HEAD);
+
+    printf("%s", target_file->trace_file_loc);
+
     //the file needs to exist, and the destination needs to not already exist, until we make that feature.
     if (!(access(target_file->destination_pwd, F_OK) == 0) ||
          (access(target_file->file_path, F_OK))      == 0)
     {
         rename(target_file->file_path, target_file->destination_pwd);
-        InitTraceFile(target_file->logistics->trace_file_loc, target_file->file_path);
+        InitTraceFile(target_file->trace_file_loc, target_file->file_path);
     }
 
     else {
         //(#3) what if multiple files with the same name exist?
         printf("file cannot be deleted\n");
     }
+
+    free(target_file->trace_file_loc);
 }
 
 void ListDir(struct Logistics *core_logistics, int size_details) 

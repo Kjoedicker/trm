@@ -54,6 +54,9 @@ test-r:
 	./trm -R 3
 	./trm -R 4
 	./trm -R 5
+
+nav: 
+	vim ~/.trash
 	
 clean:
 	-rm *.o
