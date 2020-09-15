@@ -2,6 +2,7 @@
  
 //writes a message to a file
 //in ~/.trash/deleted_file => creates a file containing pre deletion pwd for restoration
+//(#11) rename WriteTo()
 void InitTraceFile(char *location,  char *message)
 {
     FILE *file_p;

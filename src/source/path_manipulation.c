@@ -1,12 +1,15 @@
 #include "../header/main.h"
 
+//(#10) find a way to pack values into this and unpack like python args and kwargs
 int ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
                      char *target_files[], 
                      int total)
 {
     //when a file is striped it should contain all the variables neccisssary to interact with the various functions of manipulation
     struct Argument *parsed_file = strip(target_files[total]);
+    
 
+    //(#9) this is redundant; not every function that is called will rely on this. rewrite into a function
     //append for path to trace file subfolder
     char *separator = "/.\0";
     parsed_file->trace_file_loc = malloc(sizeof(char) *(strlen(parsed_file->logistics->trace_file_loc) + 
