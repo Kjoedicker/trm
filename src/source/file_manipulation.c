@@ -18,7 +18,7 @@ void DeleteFile(struct Argument *target_file)
          (access(target_file->file_path, F_OK))      == 0)
     {
         rename(target_file->file_path, target_file->destination_pwd);
-        InitTraceFile(target_file->trace_file_loc, target_file->file_path);
+        WriteTo(target_file->trace_file_loc, target_file->file_path);
     }
 
     else {
