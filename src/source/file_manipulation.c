@@ -135,8 +135,7 @@ void RestoreFile(struct Argument *target_file)
 
     free(restore_path);
     free(file_loc);
-    free(trace_file_path);
-    free(target_file->logistics);
+    free(trace_file_path); 
 }
 
 

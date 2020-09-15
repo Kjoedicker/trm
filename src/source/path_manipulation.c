@@ -1,15 +1,17 @@
 #include "../header/main.h"
 
-//(#10) find a way to pack values into this and unpack like python args and kwargs
+//given the command line arguments, recursively execute actions on each argument
 int ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
                      char *target_files[], 
-                     int total)
+                     int min_index, 
+                     int max_index)
 {
   
     //when a file is striped it should contain all the variables neccisssary to interact with the various functions of manipulation
-    struct Argument *parsed_file = strip(target_files[total]);
+    struct Argument *parsed_file = strip(target_files[max_index]);
     
-    if ((total - 1) == 0)
+    //taking into consideration instances where a flag was/wasn't specified
+    if ((max_index - 1) == min_index)
     {
         Execute(parsed_file);
         free_Argument(parsed_file);
@@ -17,10 +19,10 @@ int ParseQueuedFiles(void (*Execute) (struct Argument *target_file),
         return 0;
     }
 
-    else {
-
+    else 
+    {
         Execute(parsed_file);
-        ParseQueuedFiles(Execute, target_files, total-1);
+        ParseQueuedFiles(Execute, target_files, min_index, max_index-1);
         free_Argument(parsed_file);
     }
 
@@ -127,16 +129,14 @@ char *GetFilePWD(struct Argument *file)
 
     char *full_PWD;
 
-    
     //we need to access the execution path to properly handle the file
-    
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(file_path) ) + 1);
     
     full_PWD = concat(size_of_pwd,
-                                    pwd_path,
-                                    SEPARATOR,
-                                    file_path, 
-                                    KEEP_HEAD);
+                        pwd_path,
+                        SEPARATOR,
+                        file_path, 
+                        KEEP_HEAD);
 
     return full_PWD;
 }

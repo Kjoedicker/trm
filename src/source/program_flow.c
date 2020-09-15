@@ -30,20 +30,20 @@ void ParseFlags(int argc, char *argv[])
         if (cmpstr(flags[RESTORE][CONCISE], use_flag) ||
             cmpstr(flags[RESTORE][VERBOSE], use_flag) ){
                 //(#8) not working
-                ParseQueuedFiles(&RestoreFile, argv, argc-1);
+                ParseQueuedFiles(&RestoreFile, argv, 1, argc-1);
                 break;        
         }
 
         if (cmpstr(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
             cmpstr(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
-               
-                ParseQueuedFiles(&RestoreFile, argv, argc-1);      
+                printf("here");
+                ParseQueuedFiles(&RestoreFile, argv, 1, argc-1);      
                 break;
         }
         
         if (cmpstr(flags[DELETE][CONCISE], use_flag) ||
             cmpstr(flags[DELETE][VERBOSE], use_flag) ){
-                ParseQueuedFiles(&DeleteFile, argv, argc-1);
+                ParseQueuedFiles(&DeleteFile, argv, 1, argc-1);
                 break;        
         }
         
@@ -62,7 +62,7 @@ void ParseFlags(int argc, char *argv[])
         //TRM by default should delete the arguments provided if no other flags are conditioned
         else {
             //parse files to delete
-            ParseQueuedFiles(&DeleteFile, argv, argc-1); 
+            ParseQueuedFiles(&DeleteFile, argv, 0, argc-1); 
             break;
         } 
 

@@ -16,7 +16,7 @@ PROG_NAME = trm
 all: object clean
 
 %.o: $(SOURCE_DIR)
-	$(CC) -c $^
+	$(CC) -g -c $^
 
 object: data_initializers.o file_manipulation.o program_flow.o str_manipulation.o path_manipulation.o main.c
 	$(CC) -g -o $(PROG_NAME) $^
@@ -49,11 +49,7 @@ test-rm:
 	./trm -V
 
 test-r:
-	./trm -R 1
-	./trm -R 2
-	./trm -R 3
-	./trm -R 4
-	./trm -R 5
+	./trm -r 1 2 3 4 5
 
 nav: 
 	vim ~/.trash

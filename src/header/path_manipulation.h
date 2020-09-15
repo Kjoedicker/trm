@@ -26,7 +26,8 @@ int IsPath(char *file_path);
 // int ParseQueuedFiles(char *target_folder, char *target_files[], int total);
 int ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
                      char *target_files[], 
-                     int total);
+                     int min_index, 
+                     int max_index);
 
 
 //free all of the malloc'd data before freeing itself
