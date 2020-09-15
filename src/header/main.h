@@ -8,26 +8,28 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include "logistics.h"
 
-//for parsing provided paths
-#include "path_manipulation.h"
+//implements the logisitcs struct which contains core information about the directory structures
+#include "Logistics.h"
 
-//transform data
-#include "file_manipulation.h"
-#include "str_manipulation.h"
+//for all parsing purposes
+#include "ParseLib.h"
 
-//create data 
-#include "data_initializers.h"
+//actions to be performed
+#include "FileLib.h"
 
-//act according to data
-#include "program_flow.h"
+//supplemental tools to help with logic and overall execution of various functions
+#include "ToolLib.h"
 
+//for initializing essential folders during runtime. (.trash, .trace, .<deleted_folder>, etc.)
+#include "InitLib.h"
 
+//controls the execution of the program based on the flags provided
+#include "FlowControl.h"
 
-#define DATA_SIZE 1000
+// #define DATA_SIZE 1000
 
-#define FILE_PERMISSIONS 0755
-#define TRASH_DIRECTORY "/home/keifer/.trash/"
+// #define FILE_PERMISSIONS 0755
+// #define TRASH_DIRECTORY "/home/keifer/.trash/"
 
 #endif

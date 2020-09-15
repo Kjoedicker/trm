@@ -31,7 +31,6 @@ void DeleteFile(struct Argument *target_file)
 
 void ListDir(struct Logistics *core_logistics, int size_details) 
 { 
-
     char target_folder[strlen(core_logistics->trash_pwd) + 1];
     strcpy(target_folder, core_logistics->trash_pwd);
 
@@ -48,8 +47,9 @@ void ListDir(struct Logistics *core_logistics, int size_details)
         //access the next dirent in the directory_stream, filtering out '.' ".." path directives
         while (((directory_entry = readdir(directory_stream)) != NULL) &&
                 (!(cmpstr(directory_entry->d_name, "."))) &&
-                (!(cmpstr(directory_entry->d_name, ".."))) )
-        {      
+                (!(cmpstr(directory_entry->d_name, ".."))))
+        {     
+
             // //because files in .trash are nested we need to append for that depth for the full pwd     
             size_t filename_size = (strlen(target_folder) + strlen(directory_entry->d_name)) + 2;
             char *file_path = concat(filename_size,
@@ -59,10 +59,8 @@ void ListDir(struct Logistics *core_logistics, int size_details)
                                      KEEP_HEAD);
 
             
-            if (access(file_path, F_OK) + 1)
-            {
-                switch (size_details)
-                {
+            if (access(file_path, F_OK) + 1) {
+                switch (size_details) {
                     case VERBOSE:
 
                         stat(file_path, &file_stat);
@@ -82,27 +80,12 @@ void ListDir(struct Logistics *core_logistics, int size_details)
         closedir(directory_stream);   
     }
 
-    else 
-    {
+    else {
         fprintf(stderr, "%s", strerror(errno));
     }
 
     free(core_logistics);  
 }
-
-char *read_message(char *file_path)
-{
-    FILE *fp;
-    char *buff = malloc(sizeof(char) * 100);
-
-    fp = fopen(file_path, "r");
-    
-    fgets(buff, 100, (FILE*)fp);
-
-    fclose(fp);
-    return buff;
-}
-
          
 //(#9) what if we want to restore multiple files?
 //(#6) what if restore_path wants to just target a directory without having to specify the name of the file when it goes there. /home/usr/file_name vs /home/usr

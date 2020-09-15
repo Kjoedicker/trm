@@ -9,9 +9,9 @@ int main(int argc, char *argv[], char **envp)
     // struct Logistics *core_logistics = InitLogistics();
 
 
-    // DeleteFile(core_logistics, strip(argv[1]));
+    // DeleteFile(core_logistics, ParseFile(argv[1]));
 
-    // struct Argument *zero = strip(argv[1]);
+    // struct Argument *zero = ParseFile(argv[1]);
 
     // struct Argument **arg = malloc(sizeof(struct Argument) * 2);
     // arg[0] = zero;

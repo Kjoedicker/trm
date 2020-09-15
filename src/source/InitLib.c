@@ -1,17 +1,5 @@
 #include "../header/main.h"
  
-//writes a message to a file
-//in ~/.trash/deleted_file => creates a file containing pre deletion pwd for restoration
-//(#11) rename WriteTo()
-void WriteTo(char *location,  char *message)
-{
-    FILE *file_p;
-    file_p = fopen(location, "w+");
-
-    fputs(message, file_p);
-
-    fclose(file_p);
-}
 
 //init a Logistics struct member containing a path to the trash folder, aswell as a indicator to if it currently exists 
 struct Logistics *InitLogistics()
@@ -40,11 +28,10 @@ struct Logistics *InitLogistics()
     //incase trash folder doesn't exist
     InitTrashFolders(core_logistics);
     
-
     return core_logistics;
 }
 
-//chech if .trash || .trace needs to be created
+//chech if .trash or .trace needs to be created
 void InitTrashFolders(struct Logistics *core_logistics)
 {
     //if the trash folder exists nothing needs to be done
@@ -52,32 +39,28 @@ void InitTrashFolders(struct Logistics *core_logistics)
         core_logistics->trace_status) { 
             return; 
     }
+
     //if there isn't a .trash folder create one
-    if (!core_logistics->trash_status)
-    {
+    if (!core_logistics->trash_status) {
         InitFolder(core_logistics->trash_pwd);
     }
 
     //if there isn't a .trash/.trace folder create one
-    if (!core_logistics->trace_status)
-    {
+    if (!core_logistics->trace_status) {
         InitFolder(core_logistics->trace_file_loc);
     }
 
-    return;
 }
 
 //create a folder
 void InitFolder(char *folder)
 {
     int file_exists;
-    if ((file_exists = mkdir(folder, 0755)) == 0)
-    {
+    if ((file_exists = mkdir(folder, 0755)) == 0) {
         printf("%s - Created\n", folder);
     }
 
-    else 
-    {
+    else {
         printf("Error upon creation\n");
     }
 }
