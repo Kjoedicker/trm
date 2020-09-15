@@ -30,15 +30,14 @@ void ParseFlags(int argc, char *argv[])
         if (cmpstr(flags[RESTORE][CONCISE], use_flag) ||
             cmpstr(flags[RESTORE][VERBOSE], use_flag) ){
                 //(#8) not working
-                RestoreFile(InitLogistics(), argv[2], argv[3]);               
+                ParseQueuedFiles(&RestoreFile, argv, argc-1);
                 break;        
         }
 
         if (cmpstr(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
             cmpstr(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
                
-                RestoreFile(InitLogistics(), argv[2], NULL);  
-                // ParseQueuedFiles(&RestoreFile, argv, argv);            
+                ParseQueuedFiles(&RestoreFile, argv, argc-1);      
                 break;
         }
         

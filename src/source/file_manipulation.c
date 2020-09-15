@@ -106,25 +106,26 @@ char *read_message(char *file_path)
          
 //(#9) what if we want to restore multiple files?
 //(#6) what if restore_path wants to just target a directory without having to specify the name of the file when it goes there. /home/usr/file_name vs /home/usr
-void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path)
+void RestoreFile(struct Argument *target_file)
 {   
     // (#7) implement GetSize function for these size specifiers
-    size_t sizeof_trash_path = (strlen(core_logistics->trash_pwd) + strlen(target_file) + 2);
+    size_t sizeof_trash_path = (strlen(target_file->logistics->trash_pwd) + strlen(target_file->parsed_file_path) + 2);
     char *file_loc = concat(sizeof_trash_path,
-                            core_logistics->trash_pwd,
+                            target_file->logistics->trash_pwd,
                             "/",
-                            target_file,
+                            target_file->parsed_file_path,
                             KEEP_HEAD);
 
 
-    size_t sizeof_trace_path = (strlen(core_logistics->trace_file_loc) + strlen(target_file) + 2);
+    size_t sizeof_trace_path = (strlen(target_file->logistics->trace_file_loc) + strlen(target_file->parsed_file_path) + 2);
     char *trace_file_path = concat(sizeof_trace_path,
-                                   core_logistics->trace_file_loc,
+                                   target_file->logistics->trace_file_loc,
                                    "/.",
-                                   target_file,
+                                   target_file->parsed_file_path,
                                    KEEP_HEAD);
 
-    restore_path = (restore_path == NULL) ? read_message(trace_file_path) : restore_path;
+    // char *restore_path = (restore_path == NULL) ? read_message(trace_file_path) : restore_path;
+    char *restore_path = read_message(trace_file_path);
     printf("restore_path = %s\n", restore_path); 
 
     if (access(trace_file_path, F_OK) == 0)
@@ -135,7 +136,7 @@ void RestoreFile(struct Logistics *core_logistics, char *target_file, char *rest
     free(restore_path);
     free(file_loc);
     free(trace_file_path);
-    free(core_logistics);
+    free(target_file->logistics);
 }
 
 

@@ -9,7 +9,8 @@
 //delete a file in a directory
 void DeleteFile(struct Argument *target_file);
 
-void RestoreFile(struct Logistics *core_logistics, char *target_file, char *restore_path);
+void RestoreFile(struct Argument *target_file);
+
 
 //view the contents of directory
 //(#5 edit to take Argument member)
