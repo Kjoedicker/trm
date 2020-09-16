@@ -26,7 +26,7 @@ Argument *ParseFile(char *file_path)
 
     current_file->logistics = InitLogistics();
 
-    current_file->destination_pwd = concat(50, current_file->logistics->trash_pwd, "/", current_file->parsed_file_path, KEEP_HEAD);
+    current_file->destination_pwd = concat(50, current_file->logistics->trash_folder_pwd, "/", current_file->parsed_file_path, KEEP_HEAD);
 
     return current_file;
 };

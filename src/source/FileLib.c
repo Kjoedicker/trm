@@ -31,8 +31,8 @@ void DeleteFile(struct Argument *target_file)
 
 void ListDir(struct Logistics *core_logistics, int size_details) 
 { 
-    char target_folder[strlen(core_logistics->trash_pwd) + 1];
-    strcpy(target_folder, core_logistics->trash_pwd);
+    char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
+    strcpy(target_folder, core_logistics->trash_folder_pwd);
 
     struct stat file_stat;
 
@@ -92,9 +92,9 @@ void ListDir(struct Logistics *core_logistics, int size_details)
 void RestoreFile(struct Argument *target_file)
 {   
     // (#7) implement GetSize function for these size specifiers
-    size_t sizeof_trash_path = (strlen(target_file->logistics->trash_pwd) + strlen(target_file->parsed_file_path) + 2);
+    size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder_pwd) + strlen(target_file->parsed_file_path) + 2);
     char *file_loc = concat(sizeof_trash_path,
-                            target_file->logistics->trash_pwd,
+                            target_file->logistics->trash_folder_pwd,
                             "/",
                             target_file->parsed_file_path,
                             KEEP_HEAD);
