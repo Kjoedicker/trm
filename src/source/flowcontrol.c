@@ -1,0 +1,64 @@
+#include "../header/main.h"
+
+void 
+parseflags(int argc, char *argv[])
+{
+    char *use_flag = argv[1]; 
+
+    enum program_actions  {RESTORE, ORIGINAL_RESTORE, DELETE, VIEW_TRASH, VERBOSE_VIEW};
+    enum action_verbosity {CONCISE, VERBOSE};
+    
+    char *flags[5][2] = {
+        {"-r", "--RESTORE"},
+        {"-R", "--ORIGINAL_RESTORE"},
+        {"-d", "--DELETE"},
+        {"-v", "--VIEW_TRASH"},
+        {"-V", "--VERBOSE_VIEW"}
+    };
+     
+    for (;;) {
+
+        if (argc == 1) { 
+            fprintf(stderr, "Error - no parameters provided\n");
+            break;
+        }
+
+        if (cmpstrings(flags[RESTORE][CONCISE], use_flag) ||
+            cmpstrings(flags[RESTORE][VERBOSE], use_flag) ){
+                //(#8) not working
+                parsequeuedfiles(&RestoreFile, argv, 1, argc-1);
+                break;        
+        }
+
+        if (cmpstrings(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
+            cmpstrings(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
+                printf("here");
+                parsequeuedfiles(&RestoreFile, argv, 1, argc-1);      
+                break;
+        }
+        
+        if (cmpstrings(flags[DELETE][CONCISE], use_flag) ||
+            cmpstrings(flags[DELETE][VERBOSE], use_flag) ){
+                parsequeuedfiles(&DeleteFile, argv, 1, argc-1);
+                break;        
+        }
+        
+        if (cmpstrings(flags[VIEW_TRASH][CONCISE], use_flag) ||
+            cmpstrings(flags[VIEW_TRASH][VERBOSE], use_flag) ){
+                ListDir(initlogistics(), CONCISE);                
+                break;   
+        }
+
+        if (cmpstrings(flags[VERBOSE_VIEW][CONCISE], use_flag) ||
+            cmpstrings(flags[VERBOSE_VIEW][VERBOSE], use_flag) ){
+                ListDir(initlogistics(), VERBOSE);
+                break;      
+        }
+
+        else {
+            parsequeuedfiles(&DeleteFile, argv, 0, argc-1); 
+            break;
+        } 
+    }
+}
+

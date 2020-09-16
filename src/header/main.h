@@ -10,22 +10,22 @@
 
 
 //implements the logisitcs struct which contains core information about the directory structures
-#include "Logistics.h"
+#include "logistics.h"
 
 //for all parsing purposes
-#include "ParseLib.h"
+#include "parselib.h"
 
 //actions to be performed
-#include "FileLib.h"
+#include "filelib.h"
 
 //supplemental tools to help with logic and overall execution of various functions
-#include "ToolLib.h"
+#include "toollib.h"
 
 //for initializing essential folders during runtime. (.trash, .trace, .<deleted_folder>, etc.)
-#include "InitLib.h"
+#include "initlib.h"
 
 //controls the execution of the program based on the flags provided
-#include "FlowControl.h"
+#include "flowcontrol.h"
 
 // #define DATA_SIZE 1000
 

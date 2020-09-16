@@ -3,8 +3,6 @@
 
 #include "main.h"
 
-#define Parse void
-
 struct Argument {
     char *file_path;
     char *destination_pwd;
@@ -15,15 +13,15 @@ struct Argument {
 };
 
 //free all of the malloc'd data before freeing itself
-Parse free_Argument(struct Argument *target);
+void freearguments(struct Argument *target);
 
 //data
-struct Argument *ParseFile(char *file_path);
+struct Argument *parsefile(char *file_path);
 
-char *ParseFilePath(char *target_file);
-char *ParseFilePWD(struct Argument *file);
+char *parsefilepath(char *target_file);
+char *parsefilepwd(struct Argument *file);
 
-Parse ParseQueuedFiles(
+void parsequeuedfiles(
                 void (*Execute) (struct Argument *target_file), 
                 char *target_files[], 
                 int min_index, 

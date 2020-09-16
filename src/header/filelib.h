@@ -8,15 +8,13 @@
 
 //delete a file in a directory
 void DeleteFile(struct Argument *target_file);
-
 void RestoreFile(struct Argument *target_file);
-
 
 //view the contents of directory
 //(#5 edit to take Argument member)
 void ListDir(struct Logistics *core_logistics, int size_details);
 
-enum action_verbosity {CONCISE, VERBOSE};
+enum {CONCISE, VERBOSE};
 
 
 #endif

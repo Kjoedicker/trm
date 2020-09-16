@@ -18,7 +18,7 @@ all: object clean
 %.o: $(SOURCE_DIR)
 	$(CC) -g -c $^
 
-object: InitLib.o FileLib.o FlowControl.o ToolLib.o ParseLib.o main.c
+object: initlib.o filelib.o flowcontrol.o toollib.o parselib.o main.c
 	$(CC) -g -o $(PROG_NAME) $^
 
 val: object
@@ -61,11 +61,10 @@ clean-all:
 	-rm *.o
 	-rm *vgcore*
 
-
-
-
-
-
+maker:
+	make
+	make test-rm
+	make test-r
 
 
 	

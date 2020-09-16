@@ -3,7 +3,7 @@
      
 int main(int argc, char *argv[], char **envp)
 {
-    ParseFlags(argc, argv);
+    parseflags(argc, argv);
  
     return 0;
 }
