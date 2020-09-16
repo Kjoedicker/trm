@@ -1,7 +1,8 @@
 #include "../header/main.h"
 
 //take the path provided in the command line and ParseFile it down into usuable chunks
-struct Argument *ParseFile(char *file_path)
+struct 
+Argument *ParseFile(char *file_path)
 {
     struct Argument *current_file = malloc(sizeof(struct Argument));
 
@@ -13,10 +14,7 @@ struct Argument *ParseFile(char *file_path)
     {
         //need a stripped down version to get the filename
         current_file->parsed_file_path = ParseFilePath(file_path);
-    }
-
-    else 
-    {
+    } else {
         current_file->parsed_file_path = malloc(sizeof(char) * 50);
 
         //a stripped down path was already provided
@@ -33,7 +31,8 @@ struct Argument *ParseFile(char *file_path)
     return current_file;
 };
 
-Parse free_Argument(struct Argument *target)
+Parse 
+free_Argument(struct Argument *target)
 {
     free(target->logistics);
     free(target->destination_pwd);
@@ -43,7 +42,8 @@ Parse free_Argument(struct Argument *target)
 }
 
 //given the command line arguments, recursively execute actions on each argument
-Parse ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
+Parse 
+ParseQueuedFiles(void (*Execute) (struct Argument *target_file), 
                      char *target_files[], 
                      int min_index, 
                      int max_index)
@@ -55,9 +55,7 @@ Parse ParseQueuedFiles(void (*Execute) (struct Argument *target_file),
     if ((max_index - 1) == min_index) {
         Execute(parsed_file);
         free_Argument(parsed_file);
-    }
-
-    else {
+    } else {
         Execute(parsed_file);
         ParseQueuedFiles(Execute, target_files, min_index, max_index-1);
         free_Argument(parsed_file);
@@ -65,7 +63,8 @@ Parse ParseQueuedFiles(void (*Execute) (struct Argument *target_file),
 }
 
 //given a path, return the destination
-Parse_char *ParseFilePath(char *file_path)
+char 
+*ParseFilePath(char *file_path)
 {   
     //copy over so we can work with a terminated string
     char *provided_path = malloc(sizeof(char) * 25);
@@ -74,15 +73,12 @@ Parse_char *ParseFilePath(char *file_path)
     char *parsed_name = malloc(sizeof(char) * 50);
     int index = 0;
 
-    for (int pp_index = 0; provided_path[pp_index] != '\0'; pp_index++)
-    {
+    for (int pp_index = 0; provided_path[pp_index] != '\0'; pp_index++) {
         //skip this and restart index to write over parsed_name from the beginning
-        if (provided_path[pp_index] == '/')
-        {
+        if (provided_path[pp_index] == '/') {
             pp_index++;
             index = 0;
         }
-
         parsed_name[index++] = provided_path[pp_index];
     }
 
@@ -95,7 +91,7 @@ Parse_char *ParseFilePath(char *file_path)
 }
 
 //based on the current director and the filename, return a full file path to the file
-Parse_char *ParseFilePWD(struct Argument *file)
+char *ParseFilePWD(struct Argument *file)
 {
     char file_path[50];
     strcpy(file_path, file->file_path);
@@ -108,11 +104,12 @@ Parse_char *ParseFilePWD(struct Argument *file)
     //we need to access the execution path to properly handle the file
     size_t size_of_pwd = ( (strlen(pwd_path) + strlen(file_path) ) + 1);
     
-    full_PWD = concat(size_of_pwd,
-                        pwd_path,
-                        SEPARATOR,
-                        file_path, 
-                        KEEP_HEAD);
+    full_PWD = concat(
+                size_of_pwd,
+                pwd_path,
+                SEPARATOR,
+                file_path, 
+                KEEP_HEAD);
 
     return full_PWD;
 }
