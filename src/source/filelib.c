@@ -1,9 +1,8 @@
 #include "../header/main.h"
 
 void 
-DeleteFile(struct Argument *target_file)
+deletefile(struct Argument *target_file)
 {   
-    //only files that being deleted should need to worrry about having a trace_file_loc
     char *separator = "/.\0";
     size_t trace_file_loc_size = (strlen(target_file->logistics->trace_file_loc) + 
                                     strlen(separator) + 
@@ -13,7 +12,6 @@ DeleteFile(struct Argument *target_file)
 
     printf("%s", target_file->trace_file_loc);
 
-    //the file needs to exist, and the destination needs to not already exist, until we make that feature.
     if (!(access(target_file->destination_pwd, F_OK) == 0) ||
          (access(target_file->file_path, F_OK))      == 0)
     {
@@ -28,17 +26,15 @@ DeleteFile(struct Argument *target_file)
 }
 
 void 
-ListDir(struct Logistics *core_logistics, int size_details) 
+listdir(struct Logistics *core_logistics, int size_details) 
 { 
     char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
     strcpy(target_folder, core_logistics->trash_folder_pwd);
 
     struct stat file_stat;
 
-    //readdir() will access directory_stream returning a pointer to a entry to be accessed
     struct dirent *directory_entry;  
 
-    //opendir returns a stream of files in the directory
     DIR *directory_stream = opendir(target_folder);
     
     if (directory_stream)
@@ -49,23 +45,20 @@ ListDir(struct Logistics *core_logistics, int size_details)
                 (!(cmpstrings(directory_entry->d_name, ".."))))
         {     
 
-            // //because files in .trash are nested we need to append for that depth for the full pwd     
             size_t filename_size = (strlen(target_folder) + strlen(directory_entry->d_name)) + 2;
-            char *file_path = extendpath(filename_size,
-                                     target_folder,            
-                                     SEPARATOR,
-                                     directory_entry->d_name,
-                                     KEEP_HEAD);
+            char *file_path = extendpath(
+                                    filename_size,
+                                    target_folder,            
+                                    SEPARATOR,
+                                    directory_entry->d_name,
+                                    KEEP_HEAD);
 
             
             if (access(file_path, F_OK) + 1) {
                 switch (size_details) {
                     case VERBOSE:
-
-                        stat(file_path, &file_stat);
-                                                
+                        stat(file_path, &file_stat);                                        
                         printf("%-25s %6u bytes\n", directory_entry->d_name, (unsigned int)file_stat.st_size);
-
                         break;
                     
                     case CONCISE:
@@ -85,7 +78,7 @@ ListDir(struct Logistics *core_logistics, int size_details)
 }
          
 void 
-RestoreFile(struct Argument *target_file)
+restorefile(struct Argument *target_file)
 {   
     size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder_pwd) + strlen(target_file->parsed_file_path) + 2);
     char *file_loc = extendpath(sizeof_trash_path,
@@ -101,6 +94,7 @@ RestoreFile(struct Argument *target_file)
                                    target_file->parsed_file_path,
                                    KEEP_HEAD);
 
+    //(#16) handle manual restore path input
     // char *restore_path = (restore_path == NULL) ? readfile(trace_file_path) : restore_path;
     char *restore_path = readfile(trace_file_path);
     printf("restore_path = %s\n", restore_path); 
@@ -113,5 +107,3 @@ RestoreFile(struct Argument *target_file)
     free(file_loc);
     free(trace_file_path); 
 }
-
-

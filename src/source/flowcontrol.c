@@ -25,40 +25,37 @@ parseflags(int argc, char *argv[])
 
         if (cmpstrings(flags[RESTORE][CONCISE], use_flag) ||
             cmpstrings(flags[RESTORE][VERBOSE], use_flag) ){
-                //(#8) not working
-                parsequeuedfiles(&RestoreFile, argv, 1, argc-1);
+                parsequeuedfiles(&restorefile, argv, 1, argc-1);
                 break;        
         }
 
         if (cmpstrings(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
             cmpstrings(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
-                printf("here");
-                parsequeuedfiles(&RestoreFile, argv, 1, argc-1);      
+                parsequeuedfiles(&restorefile, argv, 1, argc-1);      
                 break;
         }
         
         if (cmpstrings(flags[DELETE][CONCISE], use_flag) ||
             cmpstrings(flags[DELETE][VERBOSE], use_flag) ){
-                parsequeuedfiles(&DeleteFile, argv, 1, argc-1);
+                parsequeuedfiles(&deletefile, argv, 1, argc-1);
                 break;        
         }
         
         if (cmpstrings(flags[VIEW_TRASH][CONCISE], use_flag) ||
             cmpstrings(flags[VIEW_TRASH][VERBOSE], use_flag) ){
-                ListDir(initlogistics(), CONCISE);                
+                listdir(initlogistics(), CONCISE);                
                 break;   
         }
 
         if (cmpstrings(flags[VERBOSE_VIEW][CONCISE], use_flag) ||
             cmpstrings(flags[VERBOSE_VIEW][VERBOSE], use_flag) ){
-                ListDir(initlogistics(), VERBOSE);
+                listdir(initlogistics(), VERBOSE);
                 break;      
         }
 
         else {
-            parsequeuedfiles(&DeleteFile, argv, 0, argc-1); 
+            parsequeuedfiles(&deletefile, argv, 0, argc-1); 
             break;
         } 
     }
 }
-

@@ -75,8 +75,3 @@ createfolder(char *folder)
         printf("Error upon creation\n");
     }
 }
-
-
-
-
-
