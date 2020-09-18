@@ -3,29 +3,36 @@
 void 
 deletefile(struct Argument *target_file)
 {   
-    char *separator = "/.\0";
-    size_t trace_file_loc_size = (strlen(target_file->logistics->trace_file_loc) + 
-                                    strlen(separator) + 
-                                    strlen(target_file->parsed_file_path));
+    int duplicateintrash = pathexists(target_file->destination_pwd);
+    int filepathstatus   = pathexists(target_file->file_path);
 
-    target_file->trace_file_loc = extendpath(trace_file_loc_size, target_file->logistics->trace_file_loc, separator, target_file->parsed_file_path, KEEP_HEAD);
-
-    printf("%s", target_file->trace_file_loc);
-
-    if (!(access(target_file->destination_pwd, F_OK) == 0) ||
-         (access(target_file->file_path, F_OK))      == 0)
+    if ( !duplicateintrash && filepathstatus)
     {
         rename(target_file->file_path, target_file->destination_pwd);
         writetofile(target_file->trace_file_loc, target_file->file_path);
     } else {
-        //(#3) what if multiple files with the same name exist?
-        printf("file cannot be deleted\n");
+        switch (filepathstatus)
+        {
+            case 0:
+                printf("error - target file path does not exist");
+                break;
+            case 1:
+                if (duplicateintrash) {
+               
+                    reextend(target_file);
+                    deletefile(target_file);
+                    return;
+                }
+
+                printf("file cannot be deleted\n");
+                break;
+        }
     }
 
     free(target_file->trace_file_loc);
 }
 
-void 
+void //(#17) has a limit of 90 files displayed in a directory
 listdir(struct Logistics *core_logistics, int size_details) 
 { 
     char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
@@ -53,7 +60,6 @@ listdir(struct Logistics *core_logistics, int size_details)
                                     directory_entry->d_name,
                                     KEEP_HEAD);
 
-            
             if (access(file_path, F_OK) + 1) {
                 switch (size_details) {
                     case VERBOSE:

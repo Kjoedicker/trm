@@ -48,6 +48,12 @@ test-rm:
 	./trm 1 2 3 4 5
 	./trm -V
 
+test-rm1:
+	-rm 1
+	touch 1
+	./trm 1
+	./trm -V
+
 test-r:
 	./trm -r 1 2 3 4 5
 

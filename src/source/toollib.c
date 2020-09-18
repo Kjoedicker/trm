@@ -11,6 +11,11 @@ writetofile(char *location,  char *message)
     fclose(file_p);
 }
 
+int pathexists(char *path)
+{
+    return (access(path, F_OK) == 0);
+}
+
 int 
 cmpstrings(char *a, char *b)
 {
@@ -31,6 +36,40 @@ char
 
     fclose(fp);
     return buff;
+}
+
+void
+reextend(struct Argument *target_file)
+{
+    char *extension = "_re\0";
+
+    size_t resize = strlen(target_file->destination_pwd) + strlen(extension);
+    target_file->destination_pwd = extendpath(
+        resize,
+        target_file->destination_pwd,
+        "",
+        extension,
+        FREE_HEAD
+    );
+
+    resize = strlen(target_file->trace_file_loc) + strlen(extension);
+    target_file->trace_file_loc = extendpath(
+        resize,
+        target_file->trace_file_loc,
+        "",
+        extension,
+        FREE_HEAD
+    );
+
+    //(#18) should the restore path reflect the filename change persistant in duplicate files?
+    // resize = strlen(target_file->file_path) + strlen(extension);
+    // target_file->file_path = extendpath(
+    //     resize,
+    //     target_file->file_path,
+    //     "",
+    //     extension,
+    //     FREE_HEAD
+    // );
 }
 
 char*
