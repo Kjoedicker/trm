@@ -33,7 +33,7 @@ git:
 	git add .
 	git commit -F commit.txt
 	git push origin $(shell eval 'git branch --show-current')
-	echo > commit.txt
+	echo "" > commit.txt
 
 
 ls:

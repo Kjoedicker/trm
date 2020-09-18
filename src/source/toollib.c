@@ -27,12 +27,12 @@ char
 {
     FILE *fp;
 
-    int readsize = 100;
+    int readsize = strlen(file_path) + 100;
     char *buff = malloc(sizeof(char) * readsize);
 
     fp = fopen(file_path, "r");
     
-    fgets(buff, 100, (FILE*)fp);
+    fgets(buff, readsize, (FILE*)fp);
 
     fclose(fp);
     return buff;
