@@ -52,10 +52,8 @@ parsequeuedfiles(void (*Execute) (struct Argument *target_file),
                      int min_index, 
                      int max_index)
 {
-    //when a file is striped it should contain all the variables neccessary to interact with the various functions of manipulation
     struct Argument *parsed_file = parsefile(target_files[max_index]);
     
-    //taking into consideration instances where a flag was/wasn't specified
     if ((max_index - 1) == min_index) {
         Execute(parsed_file);
         freearguments(parsed_file);
@@ -76,7 +74,6 @@ parsefilepath(char *file_path)
     int index = 0;
 
     for (int pp_index = 0; provided_path[pp_index] != '\0'; pp_index++) {
-        //skip this and restart index to write over parsed_name from the beginning
         if (provided_path[pp_index] == '/') {
             pp_index++;
             index = 0;
