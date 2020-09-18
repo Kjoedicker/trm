@@ -4,3 +4,5 @@ os:
 compiler: 
 -clang
 -gcc
+
+script: make
