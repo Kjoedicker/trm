@@ -1,8 +1,12 @@
 language: c
+install:
+- cd ${TRAVIS_BUILD_DIR}
 os:
 -linux
 compiler: 
 -clang
 -gcc
 
-script: make
+script:
+- cd ${TRAVIS_BUILD_DIR}
+- make
