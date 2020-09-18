@@ -1,8 +1,8 @@
 language: c
+
 install:
 - cd ${TRAVIS_BUILD_DIR}
-os:
--linux
+
 compiler: 
 -clang
 -gcc
