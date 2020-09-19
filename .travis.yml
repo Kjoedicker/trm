@@ -3,13 +3,10 @@ sudo: false
 
 language: c
 
-install:
-- cd ${TRAVIS_BUILD_DIR}
-
 compiler: 
 -clang
 -gcc
 
 script:
-- cd ${TRAVIS_BUILD_DIR}
+
 - make
