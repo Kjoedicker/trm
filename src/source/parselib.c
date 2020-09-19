@@ -21,15 +21,18 @@ parsefile(char *file_path)
     current_file->logistics = initlogistics();
 
     current_file->destination_pwd = extendpath(
-                                            50, 
-                                            current_file->logistics->trash_folder_pwd, 
-                                            "/", current_file->parsed_file_path, 
-                                            KEEP_HEAD);
+        50, 
+        current_file->logistics->trash_folder_pwd, 
+        "/", current_file->parsed_file_path, 
+        KEEP_HEAD
+    );
 
     char *separator = "/.\0";
-    size_t trace_file_loc_size = (strlen(current_file->logistics->trace_file_loc) + 
-                                    strlen(separator) + 
-                                    strlen(current_file->parsed_file_path));
+    size_t trace_file_loc_size = (
+        strlen(current_file->logistics->trace_file_loc) +                             
+        strlen(separator) + 
+        strlen(current_file->parsed_file_path)
+    );
 
     current_file->trace_file_loc = extendpath(trace_file_loc_size, current_file->logistics->trace_file_loc, separator, current_file->parsed_file_path, KEEP_HEAD);
 
@@ -100,11 +103,12 @@ parsefilepwd(struct Argument *file)
     size_t size_of_pwd = ((strlen(pwd_path) + strlen(file_path)) + 1);
     
     full_PWD = extendpath(
-                size_of_pwd,
-                pwd_path,
-                SEPARATOR,
-                file_path, 
-                KEEP_HEAD);
+        size_of_pwd,
+        pwd_path,
+        SEPARATOR,
+        file_path, 
+        KEEP_HEAD
+    );
 
     return full_PWD;
 }

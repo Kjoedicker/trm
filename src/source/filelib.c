@@ -87,18 +87,22 @@ void
 restorefile(struct Argument *target_file)
 {   
     size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder_pwd) + strlen(target_file->parsed_file_path) + 2);
-    char *file_loc = extendpath(sizeof_trash_path,
-                            target_file->logistics->trash_folder_pwd,
-                            "/",
-                            target_file->parsed_file_path,
-                            KEEP_HEAD);
+    char *file_loc = extendpath(
+        sizeof_trash_path,
+        target_file->logistics->trash_folder_pwd,
+        "/",
+        target_file->parsed_file_path,
+        KEEP_HEAD
+    );
 
     size_t sizeof_trace_path = (strlen(target_file->logistics->trace_file_loc) + strlen(target_file->parsed_file_path) + 2);
-    char *trace_file_path = extendpath(sizeof_trace_path,
-                                   target_file->logistics->trace_file_loc,
-                                   "/.",
-                                   target_file->parsed_file_path,
-                                   KEEP_HEAD);
+    char *trace_file_path = extendpath(
+        sizeof_trace_path,
+        target_file->logistics->trace_file_loc,
+        "/.",
+        target_file->parsed_file_path,
+        KEEP_HEAD
+    );
 
     //(#16) handle manual restore path input
     // char *restore_path = (restore_path == NULL) ? readfile(trace_file_path) : restore_path;
