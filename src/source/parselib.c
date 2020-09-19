@@ -49,14 +49,26 @@ freearguments(struct Argument *target)
     free(target);
 }
 
+void 
+parserestorefile(char *filename, char *restorepath)
+{
+    struct Argument *parsed_file = parsefile(filename);
+    parsed_file->restore_path = malloc((sizeof(char) * (strlen(restorepath) + strlen(parsed_file->parsed_file_path) + 1)));
+    strcpy(parsed_file->restore_path, restorepath);
+
+    restorefile(parsed_file);
+}
+
 void
 parsequeuedfiles(void (*Execute) (struct Argument *target_file), 
                      char *target_files[], 
                      int min_index, 
                      int max_index)
 {
+
     struct Argument *parsed_file = parsefile(target_files[max_index]);
-    
+    parsed_file->restore_path = NULL;
+
     if ((max_index - 1) == min_index) {
         Execute(parsed_file);
         freearguments(parsed_file);

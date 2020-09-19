@@ -86,6 +86,7 @@ listdir(struct Logistics *core_logistics, int size_details)
 void 
 restorefile(struct Argument *target_file)
 {   
+    printf("her");
     size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder_pwd) + strlen(target_file->parsed_file_path) + 2);
     char *file_loc = extendpath(
         sizeof_trash_path,
@@ -104,16 +105,22 @@ restorefile(struct Argument *target_file)
         KEEP_HEAD
     );
 
-    //(#16) handle manual restore path input
-    // char *restore_path = (restore_path == NULL) ? readfile(trace_file_path) : restore_path;
-    char *restore_path = readfile(trace_file_path);
-    printf("restore_path = %s\n", restore_path); 
+    if (target_file->restore_path == NULL)
+    {
+        char *restore_path = readfile(trace_file_path);  
+        if (access(trace_file_path, F_OK) == 0) {
+            rename(file_loc, restore_path);
+        }
 
-    if (access(trace_file_path, F_OK) == 0) {
-        rename(file_loc, restore_path);
+        free(restore_path);
+
+    } else {
+        if (!access(target_file->restore_path, F_OK)){
+            sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
+            rename(file_loc, target_file->restore_path);
+        }            
     }
 
-    free(restore_path);
     free(file_loc);
     free(trace_file_path); 
 }

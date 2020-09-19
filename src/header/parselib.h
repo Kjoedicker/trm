@@ -8,6 +8,7 @@ struct Argument {
     char *destination_pwd;
     char *parsed_file_path;
     char *trace_file_loc;
+    char *restore_path;
 
     struct Logistics *logistics;
 };
@@ -20,6 +21,7 @@ struct Argument *parsefile(char *file_path);
 
 char *parsefilepath(char *target_file);
 char *parsefilepwd(struct Argument *file);
+void parserestorefile(char *filename, char *restorepath);
 
 void parsequeuedfiles(
                 void (*Execute) (struct Argument *target_file), 

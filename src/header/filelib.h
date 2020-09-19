@@ -14,5 +14,4 @@ void listdir(struct Logistics *core_logistics, int size_details);
 
 enum {CONCISE, VERBOSE};
 
-
 #endif
