@@ -8,5 +8,4 @@ compiler:
 -gcc
 
 script:
-
-- make
+-make
