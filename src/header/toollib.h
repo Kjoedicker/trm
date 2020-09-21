@@ -5,6 +5,7 @@
 // TODO(#6): testing edited todo
 int cmpstrings(char *a, char *b);
 int pathexists(char *path);
+// TODO(#7): submitted without verbosity
 int checkifpath(char *file_path);
 void createfolder(char *folder);
 void writetofile(char *location,  char *message);
