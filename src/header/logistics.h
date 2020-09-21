@@ -1,6 +1,5 @@
 #ifndef LOGISTICS
 #define LOGISTICS
-// TODO(#2): Test snitch
 struct Logistics {
     char trash_folder_pwd[100];
     char trace_file_loc[100];
