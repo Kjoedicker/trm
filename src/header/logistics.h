@@ -9,5 +9,5 @@ struct Logistics {
 // TODO(#3): another test
 enum {IS_NULL, EXIST};
 struct Logistics *initlogistics();
-
+// TODO(#4) : testing snitch feature on tsoding/snitch
 #endif
