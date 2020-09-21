@@ -6,7 +6,7 @@
 int cmpstrings(char *a, char *b);
 int pathexists(char *path);
 int checkifpath(char *file_path);
-
+// TODO(#4): test
 void createfolder(char *folder);
 void writetofile(char *location,  char *message);
 void reextend(struct Argument *target_file);
