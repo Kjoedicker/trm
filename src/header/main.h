@@ -4,12 +4,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+// #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
 
 
-//implements the logisitcs struct which contains core information about the directory structures
+//implements the logistics struct which contains core information about the directory structures
 #include "logistics.h"
 
 //for all parsing purposes
