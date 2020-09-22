@@ -2,14 +2,11 @@
 #define STR_MANIPULATION
 
 #include "main.h"
-// TODO(#6): testing edited todo
 int cmpstrings(char *a, char *b);
 int pathexists(char *path);
-// TODO(#8): submitted without verbosity
 int checkifpath(char *file_path);
 void createfolder(char *folder);
 void writetofile(char *location,  char *message);
-// TODO(#10): test
 void reextend(struct Argument *target_file);
 char *readfile(char *file_path);
 char *extendpath(size_t allocation_size, char *head_pwd, char *separator, char *tail_pwd, int head_direction);
