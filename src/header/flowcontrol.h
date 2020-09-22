@@ -9,7 +9,6 @@
 
 #include "main.h"
 
-// TODO(#5): rewrite this in Rust
 void parseflags(int argc, char *argv[]);
 
 #endif
