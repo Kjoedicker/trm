@@ -8,6 +8,7 @@ int pathexists(char *path);
 // TODO(#8): submitted without verbosity
 int checkifpath(char *file_path);
 void createfolder(char *folder);
+// TODO(#9): test
 void writetofile(char *location,  char *message);
 void reextend(struct Argument *target_file);
 char *readfile(char *file_path);
