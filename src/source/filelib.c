@@ -32,6 +32,7 @@ deletefile(struct Argument *target_file)
     free(target_file->trace_file_loc);
 }
 
+void
 listdir(struct Logistics *core_logistics, int size_details) 
 { 
     char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
