@@ -86,7 +86,6 @@ listdir(struct Logistics *core_logistics, int size_details)
 void 
 restorefile(struct Argument *target_file)
 {   
-    printf("her");
     size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder_pwd) + strlen(target_file->parsed_file_path) + 2);
     char *file_loc = extendpath(
         sizeof_trash_path,
