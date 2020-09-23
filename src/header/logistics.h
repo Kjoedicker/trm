@@ -6,6 +6,7 @@ struct Logistics {
     int trash_folder_status;
     int trace_folder_status;
 };
+// TODO(#11): test
 enum {IS_NULL, EXIST};
 struct Logistics *initlogistics();
 #endif
