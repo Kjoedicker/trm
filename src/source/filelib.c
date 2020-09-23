@@ -32,7 +32,7 @@ deletefile(struct Argument *target_file)
     free(target_file->trace_file_loc);
 }
 
-void //(#17) has a limit of 90 files displayed in a directory
+void //TODO(#12): listdir has a limit of 90 files displayed in a directory
 listdir(struct Logistics *core_logistics, int size_details) 
 { 
     char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
