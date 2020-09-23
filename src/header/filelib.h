@@ -6,7 +6,6 @@
 
 #define SEPARATOR "/"
 
-//delete a file in a directory
 void deletefile(struct Argument *target_file);
 void restorefile(struct Argument *target_file);
 
