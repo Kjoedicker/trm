@@ -32,26 +32,20 @@ deletefile(struct Argument *target_file)
     free(target_file->trace_file_loc);
 }
 
-void //TODO(#12): listdir has a limit of 90 files displayed in a directory
 listdir(struct Logistics *core_logistics, int size_details) 
 { 
     char target_folder[strlen(core_logistics->trash_folder_pwd) + 1];
     strcpy(target_folder, core_logistics->trash_folder_pwd);
 
+    struct dirent *directory_entry;
     struct stat file_stat;
 
-    struct dirent *directory_entry;  
+    DIR *dp;
+    dp = opendir (target_folder);
 
-    DIR *directory_stream = opendir(target_folder);
-    
-    if (directory_stream)
+    if (dp != NULL)
     {
-        //access the next dirent in the directory_stream, filtering out '.' ".." path directives
-        while (((directory_entry = readdir(directory_stream)) != NULL) &&
-                (!(cmpstrings(directory_entry->d_name, "."))) &&
-                (!(cmpstrings(directory_entry->d_name, ".."))))
-        {     
-
+        while ((directory_entry = readdir(dp))) { 
             size_t filename_size = (strlen(target_folder) + strlen(directory_entry->d_name)) + 2;
             char *file_path = extendpath(
                                     filename_size,
@@ -60,25 +54,13 @@ listdir(struct Logistics *core_logistics, int size_details)
                                     directory_entry->d_name,
                                     KEEP_HEAD);
 
-            if (access(file_path, F_OK) + 1) {
-                switch (size_details) {
-                    case VERBOSE:
-                        stat(file_path, &file_stat);                                        
-                        printf("%-25s %6u bytes\n", directory_entry->d_name, (unsigned int)file_stat.st_size);
-                        break;
-                    
-                    case CONCISE:
-                        printf("%s\n", directory_entry->d_name);
-                        break;
-                }
-
-                free(file_path);
-            }
+            stat(file_path, &file_stat);
+            printf("%s -> %li\n", directory_entry->d_name, file_stat.st_size);
         }
-        closedir(directory_stream);   
-    } else {
-        fprintf(stderr, "%s", strerror(errno));
+        closedir(dp);
     }
+    else
+        perror ("Couldn't open the directory");
 
     free(core_logistics);  
 }
