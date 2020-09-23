@@ -31,7 +31,6 @@ parseflags(int argc, char *argv[])
 
         if (cmpstrings(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
             cmpstrings(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
-                // printf("%s\n%s", argv[1], argv[2]);
                 parserestorefile(argv[2], argv[3]);      
                 break;
         }
