@@ -62,7 +62,6 @@ reextend(struct Argument *target_file)
         FREE_HEAD
     );
 
-    // TODO(#13): should the restore path reflect the filename change persistant in duplicate files?
     resize = strlen(target_file->restore_path) + strlen(extension);
     target_file->restore_path = extendpath(
         resize,
