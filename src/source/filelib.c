@@ -5,11 +5,11 @@ deletefile(struct Argument *target_file)
 {   
     int duplicateintrash = pathexists(target_file->destination_pwd);
     int filepathstatus   = pathexists(target_file->file_path);
-
+    
     if ( !duplicateintrash && filepathstatus)
     {
         rename(target_file->file_path, target_file->destination_pwd);
-        writetofile(target_file->trace_file_loc, target_file->file_path);
+        writetofile(target_file->trace_file_loc, target_file->restore_path);
     } else {
         switch (filepathstatus)
         {
@@ -18,7 +18,6 @@ deletefile(struct Argument *target_file)
                 break;
             case 1:
                 if (duplicateintrash) {
-               
                     reextend(target_file);
                     deletefile(target_file);
                     return;
@@ -43,7 +42,7 @@ listdir(struct Logistics *core_logistics, int size_details)
 
     DIR *dp;
     dp = opendir (target_folder);
-    
+
     if (dp != NULL)
     {
         while ((directory_entry = readdir(dp))) { 
@@ -66,6 +65,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     free(core_logistics);  
 }
          
+// TODO: if a file is requested that isn't in the trash segfault
 void 
 restorefile(struct Argument *target_file)
 {   
@@ -86,7 +86,7 @@ restorefile(struct Argument *target_file)
         target_file->parsed_file_path,
         KEEP_HEAD
     );
-
+    // TODO: trash doesn't restore properly
     if (target_file->restore_path == NULL)
     {
         char *restore_path = readfile(trace_file_path);  

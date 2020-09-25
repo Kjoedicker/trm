@@ -7,7 +7,7 @@ parsefile(char *file_path)
 
     current_file->file_path = malloc(sizeof(char) * 50);
     strcpy(current_file->file_path, file_path);
-
+    
     if (checkifpath(current_file->file_path))
     {
         current_file->parsed_file_path = parsefilepath(file_path);
@@ -17,6 +17,9 @@ parsefile(char *file_path)
 
         current_file->file_path = parsefilepwd(current_file);
     }
+
+    current_file->restore_path = malloc(sizeof(char) * strlen(current_file->file_path));
+    strcpy(current_file->restore_path, current_file->file_path);
 
     current_file->logistics = initlogistics();
 
@@ -45,6 +48,7 @@ freearguments(struct Argument *target)
     free(target->logistics);
     free(target->destination_pwd);
     free(target->parsed_file_path);
+    free(target->restore_path);
     free(target->file_path);
     free(target);
 }
@@ -67,8 +71,7 @@ parsequeuedfiles(void (*Execute) (struct Argument *target_file),
 {
 
     struct Argument *parsed_file = parsefile(target_files[max_index]);
-    parsed_file->restore_path = NULL;
-
+    
     if ((max_index - 1) == min_index) {
         Execute(parsed_file);
         freearguments(parsed_file);
