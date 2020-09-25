@@ -83,31 +83,37 @@ restorefile(struct Argument *target_file)
         KEEP_HEAD
     );
 
-    size_t sizeof_trace_path = (strlen(target_file->logistics->trace_file_loc) + strlen(target_file->parsed_file_path) + 2);
-    char *trace_file_path = extendpath(
-        sizeof_trace_path,
-        target_file->logistics->trace_file_loc,
-        "/.",
-        target_file->parsed_file_path,
-        KEEP_HEAD
-    );
-    if (target_file->restore_path == NULL)
-    {
-        char *restore_path = readfile(trace_file_path);
-        rename(file_loc, restore_path);
+    if (access(file_loc, F_OK) == 0) {
 
-        if (access(trace_file_path, F_OK) == 0) {
+        size_t sizeof_trace_path = (strlen(target_file->logistics->trace_file_loc) + strlen(target_file->parsed_file_path) + 2);
+        char *trace_file_path = extendpath(
+            sizeof_trace_path,
+            target_file->logistics->trace_file_loc,
+            "/.",
+            target_file->parsed_file_path,
+            KEEP_HEAD
+        );
+
+        if (target_file->restore_path == NULL)
+        {
+            char *restore_path = readfile(trace_file_path);
             rename(file_loc, restore_path);
+
+            if (access(trace_file_path, F_OK) == 0) {
+                rename(file_loc, restore_path);
+            }
+
+            free(restore_path);
+        } else {
+            if (!access(target_file->restore_path, F_OK)){
+                sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
+                rename(file_loc, target_file->restore_path);
+            }            
         }
 
-        free(restore_path);
+        free(file_loc);
+        free(trace_file_path); 
     } else {
-        if (!access(target_file->restore_path, F_OK)){
-            sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
-            rename(file_loc, target_file->restore_path);
-        }            
+        printf("file not found\n");
     }
-
-    free(file_loc);
-    free(trace_file_path); 
 }
