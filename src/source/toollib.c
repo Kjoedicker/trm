@@ -11,7 +11,8 @@ writetofile(char *location,  char *message)
     fclose(file_p);
 }
 
-int pathexists(char *path)
+int 
+pathexists(char *path)
 {
     return (access(path, F_OK) == 0);
 }
