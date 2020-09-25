@@ -1,4 +1,4 @@
-# T-RM
+# TRM
 A simple cli trash manager.
 
 ## About
