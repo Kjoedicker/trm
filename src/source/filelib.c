@@ -65,7 +65,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     free(core_logistics);  
 }
          
-// TODO: if a file is requested that isn't in the trash segfault
+// TODO(#15): if a file is requested that isn't in the trash segfault
 void 
 restorefile(struct Argument *target_file)
 {   
