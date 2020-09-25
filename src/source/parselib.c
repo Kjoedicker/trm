@@ -5,6 +5,8 @@ parsefile(char *file_path)
 {
     struct Argument *current_file = malloc(sizeof(struct Argument));
 
+    current_file->restore_path = NULL;
+
     current_file->file_path = malloc(sizeof(char) * 50);
     strcpy(current_file->file_path, file_path);
     
@@ -17,9 +19,6 @@ parsefile(char *file_path)
 
         current_file->file_path = parsefilepwd(current_file);
     }
-
-    current_file->restore_path = malloc(sizeof(char) * strlen(current_file->file_path));
-    strcpy(current_file->restore_path, current_file->file_path);
 
     current_file->logistics = initlogistics();
 

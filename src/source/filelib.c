@@ -3,6 +3,11 @@
 void 
 deletefile(struct Argument *target_file)
 {   
+    if (target_file->restore_path == NULL) {
+        target_file->restore_path = malloc(sizeof(char) * strlen(target_file->file_path));
+        strcpy(target_file->restore_path, target_file->file_path);
+    }
+
     int duplicateintrash = pathexists(target_file->destination_pwd);
     int filepathstatus   = pathexists(target_file->file_path);
     
@@ -86,16 +91,17 @@ restorefile(struct Argument *target_file)
         target_file->parsed_file_path,
         KEEP_HEAD
     );
-    // TODO(#16): trash doesn't restore properly
+    
     if (target_file->restore_path == NULL)
     {
         char *restore_path = readfile(trace_file_path);
+        rename(file_loc, restore_path);
+
         if (access(trace_file_path, F_OK) == 0) {
             rename(file_loc, restore_path);
         }
 
         free(restore_path);
-    // TODO(#17): -R flag not working properly
     } else {
         if (!access(target_file->restore_path, F_OK)){
             sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
