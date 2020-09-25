@@ -75,6 +75,7 @@ maker:
 .PHONY: snitch
 snitch:
 	./snitch report --y
+	./snitch purge --y
 	./snitch list
 
 

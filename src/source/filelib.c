@@ -43,7 +43,7 @@ listdir(struct Logistics *core_logistics, int size_details)
 
     DIR *dp;
     dp = opendir (target_folder);
-
+    
     if (dp != NULL)
     {
         while ((directory_entry = readdir(dp))) { 
