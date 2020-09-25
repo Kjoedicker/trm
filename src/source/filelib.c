@@ -62,7 +62,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     else
         perror ("Couldn't open the directory");
 
-    free(core_logistics);  
+    free(core_logistics);
 }
          
 // TODO(#15): segfault occurs when restore is acted upon a file that doesn't exist
@@ -89,7 +89,7 @@ restorefile(struct Argument *target_file)
     // TODO(#16): trash doesn't restore properly
     if (target_file->restore_path == NULL)
     {
-        char *restore_path = readfile(trace_file_path);  
+        char *restore_path = readfile(trace_file_path);
         if (access(trace_file_path, F_OK) == 0) {
             rename(file_loc, restore_path);
         }

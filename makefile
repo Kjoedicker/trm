@@ -55,6 +55,7 @@ test-rm1:
 
 test-r:
 	./trm -r 1 2 3 4 5
+	ls * 
 
 nav: 
 	vim ~/.trash
@@ -71,11 +72,22 @@ maker:
 	make test-rm
 	make test-r
 
-.PHONY: snitch
+
+.PHONY: snitch entr
 snitch:
 	./snitch report --y
 	./snitch purge --y
 	./snitch list
+
+entr:
+	ls src/*/*c src/*/*h | entr make
+
+watch-remove:
+	ls trm | entr make maker
+
+watch_restore:
+	ls trm | entr make test-r
+
 
 
 	
