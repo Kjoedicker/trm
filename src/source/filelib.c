@@ -95,7 +95,7 @@ restorefile(struct Argument *target_file)
         }
 
         free(restore_path);
-
+    // TODO(#17): -R flag not working properly
     } else {
         if (!access(target_file->restore_path, F_OK)){
             sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
