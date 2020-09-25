@@ -86,7 +86,7 @@ restorefile(struct Argument *target_file)
         target_file->parsed_file_path,
         KEEP_HEAD
     );
-    // TODO: trash doesn't restore properly
+    // TODO(#16): trash doesn't restore properly
     if (target_file->restore_path == NULL)
     {
         char *restore_path = readfile(trace_file_path);  
