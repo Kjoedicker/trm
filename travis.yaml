@@ -1,6 +1,4 @@
 language: c  
 sudo: false # only for faster builds  
-compiler:
-   - clang
-script:
-  - make
+script: make
+  
