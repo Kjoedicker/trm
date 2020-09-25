@@ -71,7 +71,6 @@ maker:
 	make test-rm
 	make test-r
 
-# TODO(#14): test snitch option in make
 .PHONY: snitch
 snitch:
 	./snitch report --y
