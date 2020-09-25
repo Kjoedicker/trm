@@ -35,7 +35,6 @@ git:
 	git push origin $(shell eval 'git branch --show-current')
 	echo "" > commit.txt
 
-
 ls:
 	ls ~/.trash
 
@@ -71,6 +70,12 @@ maker:
 	make
 	make test-rm
 	make test-r
+
+# TODO(#14): test snitch option in make
+.PHONY: snitch
+snitch:
+	./snitch report --y
+	./snitch list
 
 
 	
