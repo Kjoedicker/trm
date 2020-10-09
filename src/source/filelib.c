@@ -70,7 +70,6 @@ listdir(struct Logistics *core_logistics, int size_details)
     free(core_logistics);
 }
          
-// TODO(#15): segfault occurs when restore is acted upon a file that doesn't exist
 void 
 restorefile(struct Argument *target_file)
 {   
