@@ -98,8 +98,6 @@ restorefile(struct Argument *target_file)
             char *restore_path = readfile(trace_file_path);
             rename(file_loc, restore_path);
 
-            printf("\n%s + %s\n", restore_path, target_file->parsed_file_path);
-
             if (access(trace_file_path, F_OK) == 0) {
                 rename(file_loc, restore_path);
             }
@@ -107,7 +105,6 @@ restorefile(struct Argument *target_file)
             free(restore_path);
         } else {
             if (!access(target_file->restore_path, F_OK)){
-                printf("\n%s + %s\n", target_file->restore_path, target_file->parsed_file_path);
                 sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_file_path);
                 rename(file_loc, target_file->restore_path);
             }            
