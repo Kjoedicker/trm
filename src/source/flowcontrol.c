@@ -9,8 +9,8 @@ parseflags(int argc, char *argv[])
     enum action_verbosity {CONCISE, VERBOSE};
     
     char *flags[5][2] = {
-        {"-r", "--RESTORE"},
-        {"-R", "--ORIGINAL_RESTORE"},
+        {"-r", "--ORIGINAL_RESTORE"},
+        {"-R", "--RESTORE"},
         {"-d", "--DELETE"},
         {"-v", "--VIEW_TRASH"},
         {"-V", "--VERBOSE_VIEW"}
