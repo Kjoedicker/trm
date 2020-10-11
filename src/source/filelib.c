@@ -60,7 +60,8 @@ listdir(struct Logistics *core_logistics, int size_details)
                                     KEEP_HEAD);
 
             stat(file_path, &file_stat);
-
+            
+            // TODO(#22): Integrate dynamic formatting similar to gnu lib ls command
             if (size_details)
             {
                 printf("%-8li %-25s\n", file_stat.st_size, directory_entry->d_name);
