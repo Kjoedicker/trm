@@ -60,7 +60,14 @@ listdir(struct Logistics *core_logistics, int size_details)
                                     KEEP_HEAD);
 
             stat(file_path, &file_stat);
-            printf("%s -> %li\n", directory_entry->d_name, file_stat.st_size);
+            
+            // TODO: Implement better formatting standards
+            if (size_details)
+            {
+                printf("%s -> %li\n", directory_entry->d_name, file_stat.st_size);
+            } else {
+                printf("%s ", directory_entry->d_name);
+            }    
         }
         closedir(dp);
     }
@@ -69,6 +76,7 @@ listdir(struct Logistics *core_logistics, int size_details)
 
     free(core_logistics);
 }
+
 void 
 restorefile(struct Argument *target_file)
 {   
