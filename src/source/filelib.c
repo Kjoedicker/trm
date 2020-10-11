@@ -60,15 +60,16 @@ listdir(struct Logistics *core_logistics, int size_details)
                                     KEEP_HEAD);
 
             stat(file_path, &file_stat);
-            
+
             // TODO(#21): Implement better formatting standards
             if (size_details)
             {
-                printf("%s -> %li\n", directory_entry->d_name, file_stat.st_size);
+                printf("%-8li %-25s\n", file_stat.st_size, directory_entry->d_name);
             } else {
-                printf("%s ", directory_entry->d_name);
+                printf("%-15s", directory_entry->d_name);
             }    
         }
+        printf("\n");
         closedir(dp);
     }
     else
