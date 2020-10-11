@@ -61,7 +61,7 @@ listdir(struct Logistics *core_logistics, int size_details)
 
             stat(file_path, &file_stat);
             
-            // TODO: Implement better formatting standards
+            // TODO(#21): Implement better formatting standards
             if (size_details)
             {
                 printf("%s -> %li\n", directory_entry->d_name, file_stat.st_size);
