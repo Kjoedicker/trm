@@ -40,7 +40,7 @@ parseflags(int argc, char *argv[])
                 parsequeuedfiles(&deletefile, argv, 1, argc-1);
                 break;        
         }
-        
+        // TODO(#20): view always displays file size, should be based on flag
         if (cmpstrings(flags[VIEW_TRASH][CONCISE], use_flag) ||
             cmpstrings(flags[VIEW_TRASH][VERBOSE], use_flag) ){
                 listdir(initlogistics(), CONCISE);                
