@@ -13,7 +13,11 @@ $ make
 $ sudo install ./trm /usr/bin/
 ```
 
-create an enviromental variable known as ```$Trash_Folder```, so trm has a location to place your ```.trash``` folder
+
+create an enviromental variable known as ```$Trash_Folder```, so trm has a location to place your ```.trash``` folder[0]
+
+[0] // TODO: Standardize this for ```$HOME/.local/share/Trash```
+
 
 ## Use
 
