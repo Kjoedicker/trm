@@ -5,6 +5,7 @@ deletefile(struct Argument *target_file)
 {   
     if (target_file->restore_path == NULL) {
         target_file->restore_path = malloc(sizeof(char) * strlen(target_file->file_path) + 2);
+        //target_file->date_modified
         strcpy(target_file->restore_path, target_file->file_path);
     }
 

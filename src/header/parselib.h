@@ -9,6 +9,7 @@ struct Argument {
     char *parsed_file_path;
     char *trace_file_loc;
     char *restore_path;
+    char *date_modified;
 
     struct Logistics *logistics;
 };
