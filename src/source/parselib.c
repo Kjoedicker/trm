@@ -6,6 +6,8 @@ parsefile(char *file_path)
     struct Argument *current_file = malloc(sizeof(struct Argument));
 
     current_file->restore_path = NULL;
+    current_file->date_modified = getdate();
+    printf("%s", current_file->date_modified);
 
     current_file->file_path = malloc(sizeof(char) * 50);
     strcpy(current_file->file_path, file_path);

@@ -1,14 +1,35 @@
 #include "../header/main.h"
 
 void 
-writetofile(char *location,  char *message)
+writetofile(struct Argument *file)
 {
     FILE *file_p;
-    file_p = fopen(location, "w+");
+    file_p = fopen(file->trace_file_loc, "w+");
 
-    fputs(message, file_p);
+    fprintf(file_p, "%s\n%s%s\n%s",
+        "[Trash Info]",
+        "Path=", file->file_path,
+        file->date_modified
+    );
 
     fclose(file_p);
+}
+
+char *getdate() {
+    char *date = malloc(sizeof(char) * 50);
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    sprintf(date, "DeletionDate=%d-%02d-%02d %02d:%02d:%02d", 
+            tm.tm_year + 1900, 
+            tm.tm_mon + 1, 
+            tm.tm_mday, 
+            tm.tm_hour, 
+            tm.tm_min, 
+            tm.tm_sec);
+
+    return date;
 }
 
 int 

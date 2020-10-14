@@ -5,7 +5,6 @@ deletefile(struct Argument *target_file)
 {   
     if (target_file->restore_path == NULL) {
         target_file->restore_path = malloc(sizeof(char) * strlen(target_file->file_path) + 2);
-        //target_file->date_modified
         strcpy(target_file->restore_path, target_file->file_path);
     }
 
@@ -15,7 +14,7 @@ deletefile(struct Argument *target_file)
     if ( !duplicateintrash && filepathstatus)
     {
         rename(target_file->file_path, target_file->destination_pwd);
-        writetofile(target_file->trace_file_loc, target_file->restore_path);
+        writetofile(target_file);
     } else {
         switch (filepathstatus)
         {
