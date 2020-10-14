@@ -5,12 +5,12 @@
 #include <time.h>
 int cmpstrings(char *a, char *b);
 int pathexists(char *path);
-int checkifpath(char *file_path);
+int checkifpath(char *origin);
 void createfolder(char *folder);
 char *getdate();
 void writetofile(struct Argument *file);
 void reextend(struct Argument *target_file);
-char *readfile(char *file_path);
+char *readfile(char *origin);
 char *extendpath(size_t allocation_size, char *head_pwd, char *separator, char *tail_pwd, int head_direction);
 enum {KEEP_HEAD, FREE_HEAD};
 

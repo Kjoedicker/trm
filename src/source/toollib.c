@@ -4,11 +4,11 @@ void
 writetofile(struct Argument *file)
 {
     FILE *file_p;
-    file_p = fopen(file->trace_file_loc, "w+");
+    file_p = fopen(file->trash_info, "w+");
 
     fprintf(file_p, "%s\n%s%s\n%s",
         "[Trash Info]",
-        "Path=", file->file_path,
+        "Path=", file->origin,
         file->date_modified
     );
 
@@ -21,7 +21,7 @@ char *getdate() {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    sprintf(date, "DeletionDate=%d-%02d-%02d %02d:%02d:%02d", 
+    sprintf(date, "DeletionDate=%d-%02d-%02d%02d:%02d:%02d", 
             tm.tm_year + 1900, 
             tm.tm_mon + 1, 
             tm.tm_mday, 
@@ -45,14 +45,14 @@ cmpstrings(char *a, char *b)
 }
 
 char 
-*readfile(char *file_path)
+*readfile(char *origin)
 {
     FILE *fp;
 
-    int readsize = strlen(file_path) + 100;
+    int readsize = strlen(origin) + 100;
     char *buff = malloc(sizeof(char) * readsize);
 
-    fp = fopen(file_path, "r");
+    fp = fopen(origin, "r");
     
     fgets(buff, readsize, (FILE*)fp);
 
@@ -65,23 +65,28 @@ reextend(struct Argument *target_file)
 {
     char *extension = "_re\0";
 
-    size_t resize = strlen(target_file->destination_pwd) + strlen(extension);
-    target_file->destination_pwd = extendpath(
+    size_t resize = strlen(target_file->destination) + strlen(extension);
+    target_file->destination = extendpath(
         resize,
-        target_file->destination_pwd,
+        target_file->destination,
         "",
         extension,
         FREE_HEAD
     );
 
-    resize = strlen(target_file->trace_file_loc) + strlen(extension);
-    target_file->trace_file_loc = extendpath(
+    resize = strlen(target_file->trash_info) + strlen(extension);
+    target_file->trash_info = extendpath(
         resize,
-        target_file->trace_file_loc,
+        target_file->trash_info,
         "",
         extension,
         FREE_HEAD
     );
+
+    if (target_file->restore_path == NULL) {
+        target_file->restore_path = malloc(sizeof(char) * strlen(target_file->origin) + 2);
+        strcpy(target_file->restore_path, target_file->origin);
+    }
 
     resize = strlen(target_file->restore_path) + strlen(extension);
     target_file->restore_path = extendpath(
@@ -111,12 +116,12 @@ extendpath(
 }
 
 int 
-checkifpath(char *file_path)
+checkifpath(char *origin)
 {   
     int index = 0;
-    for (; file_path[index] != '\0'; index++)
+    for (; origin[index] != '\0'; index++)
     {
-        if (file_path[index] == '/')
+        if (origin[index] == '/')
         {
             return 1;
         }      
@@ -129,6 +134,7 @@ void
 createfolder(char *folder) 
 {
     int file_exists;
+    printf("\n%s\n", folder);
     if ((file_exists = mkdir(folder, 0755)) == 0) {
         printf("%s - Created\n", folder);
     } else {

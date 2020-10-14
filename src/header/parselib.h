@@ -4,11 +4,11 @@
 #include "main.h"
 
 struct Argument {
-    char *file_path;
-    char *destination_pwd;
-    char *parsed_file_path;
-    char *trace_file_loc;
+    char *origin;
+    char *parsed_origin;
+    char *destination;
     char *restore_path;
+    char *trash_info;
     char *date_modified;
 
     struct Logistics *logistics;
@@ -18,7 +18,7 @@ struct Argument {
 void freearguments(struct Argument *target);
 
 //data
-struct Argument *parsefile(char *file_path);
+struct Argument *parsefile(char *origin);
 
 char *parsefilepath(char *target_file);
 char *parsefilepwd(struct Argument *file);

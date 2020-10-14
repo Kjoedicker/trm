@@ -1,44 +1,44 @@
 #include "../header/main.h"
 
 struct Argument*
-parsefile(char *file_path)
+parsefile(char *origin)
 {
     struct Argument *current_file = malloc(sizeof(struct Argument));
 
     current_file->restore_path = NULL;
+
     current_file->date_modified = getdate();
-    printf("%s", current_file->date_modified);
 
-    current_file->file_path = malloc(sizeof(char) * 50);
-    strcpy(current_file->file_path, file_path);
+    current_file->origin = malloc(sizeof(char) * 50);
+    strcpy(current_file->origin, origin);
     
-    if (checkifpath(current_file->file_path))
+    if (checkifpath(current_file->origin))
     {
-        current_file->parsed_file_path = parsefilepath(file_path);
+        current_file->parsed_origin = parsefilepath(origin);
     } else {
-        current_file->parsed_file_path = malloc(sizeof(char) * 50);
-        strcpy(current_file->parsed_file_path, current_file->file_path);
+        current_file->parsed_origin = malloc(sizeof(char) * 50);
+        strcpy(current_file->parsed_origin, current_file->origin);
 
-        current_file->file_path = parsefilepwd(current_file);
+        current_file->origin = parsefilepwd(current_file);
     }
 
     current_file->logistics = initlogistics();
 
-    current_file->destination_pwd = extendpath(
+    current_file->destination = extendpath(
         50, 
-        current_file->logistics->trash_folder_pwd, 
-        "/", current_file->parsed_file_path, 
+        current_file->logistics->trash_folder, 
+        "/files/", current_file->parsed_origin, 
         KEEP_HEAD
     );
 
-    char *separator = "/.\0";
-    size_t trace_file_loc_size = (
-        strlen(current_file->logistics->trace_file_loc) +                             
+    char *separator = "/\0";
+    size_t trash_info_size = (
+        strlen(current_file->logistics->trash_info) +                             
         strlen(separator) + 
-        strlen(current_file->parsed_file_path)
+        strlen(current_file->parsed_origin)
     );
 
-    current_file->trace_file_loc = extendpath(trace_file_loc_size, current_file->logistics->trace_file_loc, separator, current_file->parsed_file_path, KEEP_HEAD);
+    current_file->trash_info = extendpath(trash_info_size, current_file->logistics->trash_info, separator, current_file->parsed_origin, KEEP_HEAD);
 
     return current_file;
 };
@@ -47,10 +47,10 @@ void
 freearguments(struct Argument *target)
 {
     free(target->logistics);
-    free(target->destination_pwd);
-    free(target->parsed_file_path);
+    free(target->destination);
+    free(target->parsed_origin);
     free(target->restore_path);
-    free(target->file_path);
+    free(target->origin);
     free(target);
 }
 
@@ -58,7 +58,7 @@ void
 parserestorefile(char *filename, char *restorepath)
 {
     struct Argument *parsed_file = parsefile(filename);
-    parsed_file->restore_path = malloc((sizeof(char) * (strlen(restorepath) + strlen(parsed_file->parsed_file_path) + 1)));
+    parsed_file->restore_path = malloc((sizeof(char) * (strlen(restorepath) + strlen(parsed_file->parsed_origin) + 1)));
     strcpy(parsed_file->restore_path, restorepath);
 
     restorefile(parsed_file);
@@ -84,10 +84,10 @@ parsequeuedfiles(void (*Execute) (struct Argument *target_file),
 }
 
 char*
-parsefilepath(char *file_path)
+parsefilepath(char *origin)
 {   
     char *provided_path = malloc(sizeof(char) * 25);
-    strcpy(provided_path, file_path);
+    strcpy(provided_path, origin);
 
     char *parsed_name = malloc(sizeof(char) * 50);
     int index = 0;
@@ -108,21 +108,21 @@ parsefilepath(char *file_path)
 char*
 parsefilepwd(struct Argument *file)
 {
-    char file_path[50];
-    strcpy(file_path, file->file_path);
-    free(file->file_path);
+    char origin[50];
+    strcpy(origin, file->origin);
+    free(file->origin);
     
     char *pwd_path = getenv("PWD");
 
     char *full_PWD;
 
-    size_t size_of_pwd = ((strlen(pwd_path) + strlen(file_path)) + 1);
+    size_t size_of_pwd = ((strlen(pwd_path) + strlen(origin)) + 1);
     
     full_PWD = extendpath(
         size_of_pwd,
         pwd_path,
         SEPARATOR,
-        file_path, 
+        origin, 
         KEEP_HEAD
     );
 
