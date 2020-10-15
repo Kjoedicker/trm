@@ -54,3 +54,37 @@ inittrashfolders(struct Logistics *core_logistics)
         return;
     }
 }
+
+struct restlogistics*
+initrestlogistics(struct Argument *target_file) {
+    struct restlogistics *logistics = malloc(sizeof(struct restlogistics));
+
+    size_t sizeof_trash_path = (strlen(target_file->logistics->trash_files) + strlen(target_file->parsed_origin) + 2);
+    
+    logistics->file_loc = extendpath(
+        sizeof_trash_path,
+        target_file->logistics->trash_files,
+        "/",
+        target_file->parsed_origin,
+        KEEP_HEAD
+    );
+
+    char ext[] = ".trashinfo";
+    size_t sizeof_info_path = (
+        strlen(target_file->logistics->trash_info) + 
+        strlen(target_file->parsed_origin) + 
+        strlen(ext) + 
+        2
+    );
+
+    logistics->origin_pwd = extendpath(
+        sizeof_info_path,
+        target_file->logistics->trash_info,
+        "/",
+        target_file->parsed_origin,
+        KEEP_HEAD
+    );
+    strcat(logistics->origin_pwd, ext);
+
+    return logistics;
+}

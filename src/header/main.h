@@ -20,7 +20,7 @@
 //supplemental tools to help with logic and overall execution of various functions
 #include "toollib.h"
 
-//for initializing essential folders during runtime. (.trash, .trace, .<deleted_folder>, etc.)
+//for initializing essential folders during runtime. (.trash, .info, .<deleted_folder>, etc.)
 #include "initlib.h"
 
 //controls the execution of the program based on the flags provided

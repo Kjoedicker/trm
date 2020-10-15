@@ -27,7 +27,8 @@ parsefile(char *origin)
     current_file->destination = extendpath(
         50, 
         current_file->logistics->trash_folder, 
-        "/files/", current_file->parsed_origin, 
+        "/files/", 
+        current_file->parsed_origin, 
         KEEP_HEAD
     );
 
@@ -38,7 +39,12 @@ parsefile(char *origin)
         strlen(current_file->parsed_origin)
     );
 
-    current_file->trash_info = extendpath(trash_info_size, current_file->logistics->trash_info, separator, current_file->parsed_origin, KEEP_HEAD);
+    current_file->trash_info = extendpath(trash_info_size, 
+        current_file->logistics->trash_info, 
+        separator, 
+        current_file->parsed_origin, 
+        KEEP_HEAD
+    );
 
     return current_file;
 };
@@ -51,6 +57,8 @@ freearguments(struct Argument *target)
     free(target->parsed_origin);
     free(target->restore_path);
     free(target->origin);
+    free(target->trash_info);
+    free(target->date_modified);
     free(target);
 }
 
@@ -58,6 +66,7 @@ void
 parserestorefile(char *filename, char *restorepath)
 {
     struct Argument *parsed_file = parsefile(filename);
+
     parsed_file->restore_path = malloc((sizeof(char) * (strlen(restorepath) + strlen(parsed_file->parsed_origin) + 1)));
     strcpy(parsed_file->restore_path, restorepath);
 
@@ -76,6 +85,7 @@ parsequeuedfiles(void (*Execute) (struct Argument *target_file),
     if ((max_index - 1) == min_index) {
         Execute(parsed_file);
         freearguments(parsed_file);
+  
     } else {
         Execute(parsed_file);
         parsequeuedfiles(Execute, target_files, min_index, max_index-1);
@@ -128,3 +138,37 @@ parsefilepwd(struct Argument *file)
 
     return full_PWD;
 }
+
+char *parsetext(char *text, char *pattern) {
+  char *parsedtext = malloc(sizeof(char) * 50);
+  strcpy(parsedtext, "");
+
+  sscanf(text, pattern, parsedtext);
+
+  return parsedtext;
+}
+
+char *parseinfofile(char *filename) {
+    FILE* file;
+    file = fopen(filename, "r");
+
+    int buffsize = 100;
+    char buffer[buffsize];
+
+    char *path = NULL;
+    while(path == NULL) {
+        fgets(buffer, buffsize, file);
+        path = parsetext(buffer, "Path=%s");
+
+        if (checktext(path)) {
+            break;
+        } else {
+            free(path);
+            path = NULL;
+        }
+                
+    }
+    fclose(file);
+
+    return path;
+} 

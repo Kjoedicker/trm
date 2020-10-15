@@ -28,8 +28,6 @@ deletefile(struct Argument *target_file)
                 break;
         }
     }
-
-    free(target_file->trash_info);
 }
 
 void
@@ -77,46 +75,27 @@ listdir(struct Logistics *core_logistics, int size_details)
 void 
 restorefile(struct Argument *target_file)
 {   
-    size_t sizeof_trash_path = (strlen(target_file->logistics->trash_folder) + strlen(target_file->parsed_origin) + 2);
-    char *file_loc = extendpath(
-        sizeof_trash_path,
-        target_file->logistics->trash_folder,
-        "/",
-        target_file->parsed_origin,
-        KEEP_HEAD
-    );
+    struct restlogistics *logistics = initrestlogistics(target_file);
 
-    if (access(file_loc, F_OK) == 0) {
-
-        size_t sizeof_trace_path = (strlen(target_file->logistics->trash_info) + strlen(target_file->parsed_origin) + 2);
-        char *trace_origin = extendpath(
-            sizeof_trace_path,
-            target_file->logistics->trash_info,
-            "/",
-            target_file->parsed_origin,
-            KEEP_HEAD
-        );
+    if (access(logistics->file_loc, F_OK) == 0) {
 
         if (target_file->restore_path == NULL)
         {
-            char *restore_path = readfile(trace_origin);
-            rename(file_loc, restore_path);
-
-            if (access(trace_origin, F_OK) == 0) {
-                rename(file_loc, restore_path);
+            if (access(logistics->origin_pwd, F_OK) == 0) {
+                char *restore_path = parseinfofile(logistics->origin_pwd);
+                rename(logistics->file_loc, restore_path);
+                free(restore_path);
             }
-
-            free(restore_path);
         } else {
             if (!access(target_file->restore_path, F_OK)){
                 sprintf(target_file->restore_path, "%s%s%s", target_file->restore_path, "/", target_file->parsed_origin);
-                rename(file_loc, target_file->restore_path);
+                rename(logistics->file_loc, target_file->restore_path);
             }            
         }
-
-        free(file_loc);
-        free(trace_origin); 
     } else {
         printf("file not found\n");
     }
+    free(logistics->file_loc);
+    free(logistics->origin_pwd); 
+    free(logistics);
 }

@@ -22,7 +22,9 @@ struct Argument *parsefile(char *origin);
 
 char *parsefilepath(char *target_file);
 char *parsefilepwd(struct Argument *file);
+char *parseinfofile(char *filename);
 void parserestorefile(char *filename, char *restorepath);
+char *parsetext(char *text, char *pattern);
 void parsemessage(struct Argument *file);
 
 void parsequeuedfiles(

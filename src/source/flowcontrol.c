@@ -5,7 +5,7 @@ parseflags(int argc, char *argv[])
 {
     char *use_flag = argv[1]; 
 
-    enum program_actions  {RESTORE, ORIGINAL_RESTORE, DELETE, VIEW_TRASH, VERBOSE_VIEW};
+    enum program_actions  {ORIGINAL_RESTORE, RESTORE, DELETE, VIEW_TRASH, VERBOSE_VIEW};
     enum action_verbosity {CONCISE, VERBOSE};
     
     char *flags[5][2] = {
@@ -23,14 +23,14 @@ parseflags(int argc, char *argv[])
             break;
         }
 
-        if (cmpstrings(flags[RESTORE][CONCISE], use_flag) ||
-            cmpstrings(flags[RESTORE][VERBOSE], use_flag) ){
+        if (cmpstrings(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
+            cmpstrings(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
                 parsequeuedfiles(&restorefile, argv, 1, argc-1);
                 break;        
         }
 
-        if (cmpstrings(flags[ORIGINAL_RESTORE][CONCISE], use_flag) ||
-            cmpstrings(flags[ORIGINAL_RESTORE][VERBOSE], use_flag) ){
+        if (cmpstrings(flags[RESTORE][CONCISE], use_flag) ||
+            cmpstrings(flags[RESTORE][VERBOSE], use_flag) ){
                 parserestorefile(argv[2], argv[3]);      
                 break;
         }

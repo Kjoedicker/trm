@@ -141,3 +141,12 @@ createfolder(char *folder)
         printf("Error upon creation\n");
     }
 }
+
+int checktext(char *text) {
+    //strcmp returns 0 if it is a match, so we need to check for 0
+    if (!strcmp(text, "")) {
+      return INVALID;
+    } else {
+      return VALID;
+    }
+}
