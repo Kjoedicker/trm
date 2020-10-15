@@ -13,11 +13,7 @@ $ make
 $ sudo install ./trm /usr/bin/
 ```
 
-
-create an enviromental variable known as ```$Trash_Folder```, so trm has a location to place your ```.trash``` folder[0]
-
-**[0]** // TODO([#23](https://github.com/Kjoedicker/trm/issues/23)): Standardize this for ```$HOME/.local/share/Trash```
-
+Unless already defined, create and define the enviromental variable ```XDG_DATA_HOME``` as ```$HOME/.local/share/Trash```.
 
 ## Use
 
@@ -62,10 +58,10 @@ $ 1 1_re
 
 #### Restoring files 
 
-When a file is deleted, a trace file containing its original location is created. 
+When a file is deleted, a info file containing its original location is created. 
 
 ```
-$ ./trm -r <file_name> <$TRASH_FOLDER/.trace/file_name>
+$ ./trm -r <file_name> <$TRASH_FOLDER/.info/file_name>
 ```
 
 If you want to restore a file to a specific path, the ```-R``` flag is used with the destination specified
