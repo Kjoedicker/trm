@@ -5,7 +5,7 @@ initlogistics()
 {
     struct Logistics *core_logistics = malloc(sizeof(struct Logistics));
     
-    char *trash_folder  = getenv("TRASH_FOLDER");
+    char *trash_folder  = getenv("XDG_DATA_HOME");
 
     strcpy(core_logistics->trash_folder, trash_folder);
 
