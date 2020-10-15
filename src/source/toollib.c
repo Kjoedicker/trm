@@ -3,6 +3,8 @@
 void 
 writetofile(struct Argument *file)
 {
+    strcat(file->trash_info, ".trashinfo");
+
     FILE *file_p;
     file_p = fopen(file->trash_info, "w+");
 
