@@ -72,6 +72,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     free(core_logistics);
 }
 
+// TODO(#24): .trashinfo should be deleted upon restoration
 void 
 restorefile(struct Argument *target_file)
 {   
