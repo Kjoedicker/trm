@@ -3,10 +3,11 @@
 void 
 writetofile(struct Argument *file)
 {
-    strcat(file->trash_info, ".trashinfo");
+    char info_ext[100];
+    sprintf(info_ext, "%s%s", file->trash_info, ".trashinfo");
 
     FILE *file_p;
-    file_p = fopen(file->trash_info, "w+");
+    file_p = fopen(info_ext, "w+");
 
     fprintf(file_p, "%s\n%s%s\n%s",
         "[Trash Info]",
