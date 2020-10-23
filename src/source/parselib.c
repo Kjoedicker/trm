@@ -9,14 +9,14 @@ parsefile(char *origin)
 
     current_file->date_modified = getdate();
 
-    current_file->origin = malloc(sizeof(char) * 50);
+    current_file->origin = malloc(sizeof(char) * MAX_SIZE);
     strcpy(current_file->origin, origin);
     
     if (checkifpath(current_file->origin))
     {
         current_file->parsed_origin = parsefilepath(origin);
     } else {
-        current_file->parsed_origin = malloc(sizeof(char) * 50);
+        current_file->parsed_origin = malloc(sizeof(char) * MAX_SIZE);
         strcpy(current_file->parsed_origin, current_file->origin);
 
         current_file->origin = parsefilepwd(current_file);
@@ -25,7 +25,7 @@ parsefile(char *origin)
     current_file->logistics = initlogistics();
 
     current_file->destination = extendpath(
-        50, 
+        MAX_SIZE, 
         current_file->logistics->trash_folder, 
         "/files/", 
         current_file->parsed_origin, 
@@ -99,7 +99,7 @@ parsefilepath(char *origin)
     char *provided_path = malloc(sizeof(char) * 25);
     strcpy(provided_path, origin);
 
-    char *parsed_name = malloc(sizeof(char) * 50);
+    char *parsed_name = malloc(sizeof(char) * MAX_SIZE);
     int index = 0;
 
     for (int pp_index = 0; provided_path[pp_index] != '\0'; pp_index++) {
@@ -118,7 +118,7 @@ parsefilepath(char *origin)
 char*
 parsefilepwd(struct Argument *file)
 {
-    char origin[50];
+    char origin[MAX_SIZE];
     strcpy(origin, file->origin);
     free(file->origin);
     
@@ -140,7 +140,7 @@ parsefilepwd(struct Argument *file)
 }
 
 char *parsetext(char *text, char *pattern) {
-  char *parsedtext = malloc(sizeof(char) * 50);
+  char *parsedtext = malloc(sizeof(char) * MAX_SIZE);
   strcpy(parsedtext, "");
 
   sscanf(text, pattern, parsedtext);
@@ -152,7 +152,7 @@ char *parseinfofile(char *filename) {
     FILE* file;
     file = fopen(filename, "r");
 
-    int buffsize = 100;
+    int buffsize = MAX_SIZE;
     char buffer[buffsize];
 
     char *path = NULL;

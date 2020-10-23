@@ -8,6 +8,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#define MAX_SIZE 500
+
 //implements the logistics struct which contains core information about the directory structures
 #include "logistics.h"
 
