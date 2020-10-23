@@ -1,0 +1,9 @@
+language: c 
+sudo:
+os: linux
+compiler:
+  - clang
+  - gcc 
+script: make
+
+  
