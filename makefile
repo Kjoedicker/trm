@@ -27,6 +27,7 @@ val: object
 gdb: object
 	grdb ./$(PROG_NAME)
 
+# TODO(#26): this evaluation produces errors on systems not supporting.
 BRANCH := $(shell eval 'git branch --show-current')
 
 git:
