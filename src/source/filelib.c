@@ -43,7 +43,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     DIR *dp;
     dp = opendir (target_folder);
 
-    // TODO: currently shows files, enable folders to be shown as well
+    // TODO(#28): currently shows files, enable folders to be shown as well
     if (dp != NULL)
     {
         while ((directory_entry = readdir(dp))) { 
