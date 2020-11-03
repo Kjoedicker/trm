@@ -7,10 +7,6 @@ SOURCE_DIR = src/source/%.c
 OBJ_DIR = $(OBJ_DIR)/%.c
 OBJ_PWD = src/obc/
 
-OBJS = 
-
-test = $(shell ls src/header)
-
 PROG_NAME = trm
 
 all: object clean
@@ -21,74 +17,12 @@ all: object clean
 object: initlib.o filelib.o flowcontrol.o toollib.o parselib.o main.c
 	$(CC) -g -o $(PROG_NAME) $^
 
-val: object
-	valgrind --leak-check=full ./$(PROG_NAME) -V
-
-gdb: object
-	grdb ./$(PROG_NAME)
-
-# TODO(#26): this evaluation produces errors on systems not supporting.
-BRANCH := $(shell eval 'git branch --show-current')
-
-git:
-	git add .
-	git commit -F commit.txt
-	git push origin $(shell eval 'git branch --show-current')
-	echo "" > commit.txt
-
-ls:
-	ls ~/.trash
-
-vi:
-	vim ~/.trash
-
-test-rm:
-	-rm 1 2 3 4 5
-	touch 1 2 3 4 5
-	./trm 1 2 3 4 5
-	./trm -V
-
-test-rm1:
-	-rm 1
-	touch 1
-	./trm 1
-	./trm -V
-
-test-r:
-	./trm -r 1 2 3 4 5
-	ls * 
-
-nav: 
-	vim ~/.trash
-	
 clean:
 	-rm *.o
 
 clean-all:
 	-rm *.o
 	-rm *vgcore*
-
-maker:
-	make
-	make test-rm
-	make test-r
-
-
-.PHONY: snitch entr
-snitch:
-	./snitch report --y
-	./snitch purge --y
-	./snitch list
-
-entr:
-	ls src/*/*c src/*/*h | entr make
-
-watch-remove:
-	ls trm | entr make maker
-
-watch_restore:
-	ls trm | entr make test-r
-
 
 
 	
