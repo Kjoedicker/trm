@@ -33,8 +33,9 @@ deletefile(struct Argument *target_file)
 void
 listdir(struct Logistics *core_logistics, int size_details) 
 { 
-    char target_folder[strlen(core_logistics->trash_folder) + 1];
-    strcpy(target_folder, core_logistics->trash_folder);
+    char *subfolder = "Trash/files\0";
+    char target_folder[strlen(core_logistics->trash_folder) + strlen(subfolder)];
+    sprintf(target_folder, "%s/%s", core_logistics->trash_folder, subfolder);
 
     struct dirent *directory_entry;
     struct stat file_stat;
@@ -42,6 +43,7 @@ listdir(struct Logistics *core_logistics, int size_details)
     DIR *dp;
     dp = opendir (target_folder);
 
+    // TODO: currently shows files, enable folders to be shown as well
     if (dp != NULL)
     {
         while ((directory_entry = readdir(dp))) { 
